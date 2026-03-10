@@ -1,0 +1,39 @@
+# Unidad: Jefe de Comunicación
+
+**ID:** JEF-COM-UNI-001-comunicacion
+**Nivel:** Jefatura (1)
+**Dominio:** Comunicación
+**Tipo:** Unidad
+**Versión:** 2.1.0
+
+id: JEF-COM-UNI-001-comunicacion
+nombre: "Jefe de Comunicación"
+descripcion: "Jefe de dominios de comunicación: Idiomas"
+
+dominios:
+  - ESP-IDI-UNI-001-idiomas
+
+namespaces:
+  - /english
+  - /idiomas
+  - /spanish
+  - /french
+
+responsabilidades:
+  - supervisar_ensenanza_idiomas
+  - coordinar_metodologias
+  - gestionar_materiales
+
+conocimiento:
+  ruta: "jefaturas/comunicacion/conocimiento/"
+
+memoria:
+  ruta: "jefaturas/comunicacion/memoria/"
+  archivo: JEF-COM-MEM-001-memoria.db
+
+herramientas:
+  propias: [gpt_researcher, engram]
+
+config:
+  modelo: glm-5
+  temperatura: 0.7

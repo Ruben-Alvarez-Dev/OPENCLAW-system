@@ -1,0 +1,75 @@
+# =============================================================================
+# OPENCLAW-system - Dockerfile para Agentes del Concilio
+# =============================================================================
+# Construye imágenes para Director, Ejecutor o Archivador
+# Uso: docker build --build-arg AGENT_ROLE=director -t openclaw-director .
+# =============================================================================
+
+# ============================================
+# Stage 1: Builder
+# ============================================
+FROM node:23-alpine AS builder
+
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache python3 make g++
+
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile --prod=false
+
+# Copy source code
+COPY tsconfig.json ./
+COPY src/ ./src/
+
+# Build TypeScript
+RUN pnpm build || npm run build
+
+# ============================================
+# Stage 2: Runtime
+# ============================================
+FROM node:23-alpine AS runtime
+
+WORKDIR /app
+
+# Build argument for agent role
+ARG AGENT_ROLE=ejecutor
+
+# Create non-root user
+RUN addgroup -g 1001 openclaw && \
+    adduser -D -u 1001 -G openclaw openclaw
+
+# Install pnpm in runtime
+RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
+
+# Copy built application
+COPY --from=builder --chown=openclaw:openclaw /app/dist ./dist
+COPY --from=builder --chown=openclaw:openclaw /app/node_modules ./node_modules
+COPY --from=builder --chown=openclaw:openclaw /app/package.json ./
+
+# Set environment
+ENV NODE_ENV=production
+ENV AGENT_ROLE=${AGENT_ROLE}
+ENV LOG_LEVEL=info
+
+# Switch to non-root user
+USER openclaw
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD wget -q --spider http://localhost:8081/health || \
+        wget -q --spider http://localhost:8082/health || \
+        wget -q --spider http://localhost:8083/health || \
+        exit 1
+
+# Expose port based on role (will be overridden by docker-compose)
+EXPOSE 8081 8082 8083
+
+# Run the agent
+CMD ["node", "dist/agents/${AGENT_ROLE}.js"]

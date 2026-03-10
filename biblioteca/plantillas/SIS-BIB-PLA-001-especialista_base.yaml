@@ -1,0 +1,82 @@
+# Plantilla: Especialista Base
+
+**ID:** SIS-BIB-PLA-001-especialista_base
+**Nivel:** Sistema
+**Dominio:** Biblioteca
+**Tipo:** Plantilla
+**Versión:** 2.1.0
+
+id: SIS-BIB-PLA-001-especialista_base
+nombre: "Plantilla Base para Especialistas"
+descripcion: "Template reutilizable para crear nuevas unidades especializadas tri-agente"
+
+# ===========================================
+# ESTRUCTURA TRI-AGENTE
+# ===========================================
+
+triagente:
+  patron: triunvirato
+  componentes: [director, ejecutor, archivador]
+  flujo: "director → ejecutor → archivador"
+
+# ===========================================
+# COMPONENTES
+# ===========================================
+
+director:
+  rol: "Planificador Estratégico"
+  responsabilidades:
+    - recibir_solicitud
+    - descomponer_tareas
+    - delegar_en_ejecutor
+    - supervisar_progreso
+  herramientas_default: [delegacion, seguimiento, consulta_memoria]
+
+ejecutor:
+  rol: "Ejecutor Técnico"
+  responsabilidades:
+    - ejecutar_tareas
+    - generar_artefactos
+    - reportar_progreso
+  herramientas_default: [ejecucion_codigo, generacion_documentos]
+
+archivador:
+  rol: "Validador y Archivista"
+  responsabilidades:
+    - validar_calidad
+    - actualizar_memoria
+    - archivar_artefactos
+  herramientas_default: [validacion, persistencia_memoria]
+
+# ===========================================
+# VARIABLES
+# ===========================================
+
+variables:
+  DOMINIO:
+    descripcion: "Código de 3 letras del dominio"
+    ejemplo: "DES"
+  DOMINIO_NOMBRE:
+    descripcion: "Nombre completo del dominio"
+    ejemplo: "Desarrollo"
+  JEFE:
+    descripcion: "ID del jefe de dominio"
+    ejemplo: "JEF-ING-UNI-001-ingenieria"
+  NAMESPACE:
+    descripcion: "Namespace para routing"
+    ejemplo: "/dev"
+
+# ===========================================
+# ESTRUCTURA DE ARCHIVOS
+# ===========================================
+
+estructura:
+  unidad: "ESP-{DOMINIO}-UNI-001-{nombre}.yaml"
+  director: "ESP-{DOMINIO}-DIR-001-{nombre}.yaml"
+  ejecutor: "ESP-{DOMINIO}-EJE-001-{nombre}.yaml"
+  archivador: "ESP-{DOMINIO}-ARC-001-{nombre}.yaml"
+  herramientas: "herramientas/ESP-{DOMINIO}-HER-001-herramientas.yaml"
+  conocimiento:
+    - "conocimiento/ESP-{DOMINIO}-CNO-001-personal/"
+    - "conocimiento/ESP-{DOMINIO}-CNO-002-estandares/"
+  memoria: "memoria/ESP-{DOMINIO}-MEM-001-memoria.db"

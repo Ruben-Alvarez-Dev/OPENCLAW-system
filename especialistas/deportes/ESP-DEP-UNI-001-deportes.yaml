@@ -1,0 +1,40 @@
+# Unidad: Especialista de Deportes
+
+**ID:** ESP-DEP-UNI-001-deportes
+**Nivel:** Especialista (2)
+**Dominio:** Deportes
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-RHU-UNI-001-recursos_humanos
+
+id: ESP-DEP-UNI-001-deportes
+nombre: "Unidad de Deportes y Fitness"
+descripcion: "Unidad especializada en entrenamiento, fitness y nutrición deportiva"
+namespace: /fitness
+
+triagente:
+  patron: triunvirato
+  director: ESP-DEP-DIR-001-director
+  ejecutor: ESP-DEP-EJE-001-ejecutor
+  archivador: ESP-DEP-ARC-001-archivador
+
+especialidades:
+  - entrenamiento_fuerza
+  - hipertrofia
+  - resistencia
+  - nutricion_deportiva
+  - planes_entrenamiento
+
+conocimiento:
+  ruta: "especialistas/deportes/conocimiento/"
+
+memoria:
+  ruta: "especialistas/deportes/memoria/"
+  archivo: ESP-DEP-MEM-001-memoria.db
+
+herramientas:
+  habilitadas: [shell_exec, filesystem, http_client, database]
+
+routing:
+  namespace: /fitness
+  aliases: [/deportes, /training, /gym]

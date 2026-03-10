@@ -1,0 +1,54 @@
+# Unidad: Especialista de Idiomas
+
+**ID:** ESP-IDI-UNI-001-idiomas
+**Nivel:** Especialista (2)
+**Dominio:** Idiomas
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-COM-UNI-001-comunicacion
+
+id: ESP-IDI-UNI-001-idiomas
+nombre: "Unidad de Idiomas"
+descripcion: "Unidad especializada en enseñanza y aprendizaje de idiomas"
+namespace: /english
+
+triagente:
+  patron: triunvirato
+  director: ESP-IDI-DIR-001-director
+  ejecutor: ESP-IDI-EJE-001-ejecutor
+  archivador: ESP-IDI-ARC-001-archivador
+
+especialidades:
+  - ingles
+  - espanol
+  - frances
+  - gramatica
+  - vocabulario
+  - conversacion
+  - preparacion_examenes
+
+conocimiento:
+  ruta: "especialistas/idiomas/conocimiento/"
+  fuentes:
+    - id: ESP-IDI-CNO-001-personal
+      tipo: personal
+    - id: ESP-IDI-CNO-002-estandares
+      tipo: estandares
+
+memoria:
+  ruta: "especialistas/idiomas/memoria/"
+  archivo: ESP-IDI-MEM-001-memoria.db
+
+herramientas:
+  config: "especialistas/idiomas/herramientas/ESP-IDI-HER-001-herramientas.yaml"
+  habilitadas: [shell_exec, filesystem, http_client]
+
+routing:
+  namespace: /english
+  aliases: [/idiomas, /spanish, /french, /languages]
+
+config:
+  modelos:
+    director: glm-5
+    ejecutor: glm-5
+    archivador: glm-4.7

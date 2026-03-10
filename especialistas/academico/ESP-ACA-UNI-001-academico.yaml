@@ -1,0 +1,39 @@
+# Unidad: Especialista Académico
+
+**ID:** ESP-ACA-UNI-001-academico
+**Nivel:** Especialista (2)
+**Dominio:** Académico
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-CON-UNI-001-conocimiento
+
+id: ESP-ACA-UNI-001-academico
+nombre: "Unidad Académica"
+descripcion: "Unidad especializada en estudio, oposiciones y tutoría"
+namespace: /academico
+
+triagente:
+  patron: triunvirato
+  director: ESP-ACA-DIR-001-director
+  ejecutor: ESP-ACA-EJE-001-ejecutor
+  archivador: ESP-ACA-ARC-001-archivador
+
+especialidades:
+  - preparacion_oposiciones
+  - tecnicas_estudio
+  - tutoria
+  - organizacion_temarios
+
+conocimiento:
+  ruta: "especialistas/academico/conocimiento/"
+
+memoria:
+  ruta: "especialistas/academico/memoria/"
+  archivo: ESP-ACA-MEM-001-memoria.db
+
+herramientas:
+  habilitadas: [shell_exec, filesystem, gpt_researcher, maestro, engram]
+
+routing:
+  namespace: /academico
+  aliases: [/oposiciones, /estudio, /tutor]

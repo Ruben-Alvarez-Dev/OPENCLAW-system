@@ -1,0 +1,53 @@
+# Unidad: Especialista de Infraestructura
+
+**ID:** ESP-INF-UNI-001-infraestructura
+**Nivel:** Especialista (2)
+**Dominio:** Infraestructura
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-ING-UNI-001-ingenieria
+
+id: ESP-INF-UNI-001-infraestructura
+nombre: "Unidad de Infraestructura"
+descripcion: "Unidad especializada en DevOps, servidores y despliegue"
+namespace: /infra
+
+triagente:
+  patron: triunvirato
+  director: ESP-INF-DIR-001-director
+  ejecutor: ESP-INF-EJE-001-ejecutor
+  archivador: ESP-INF-ARC-001-archivador
+
+especialidades:
+  - devops
+  - kubernetes
+  - docker
+  - ci_cd
+  - monitoreo
+  - cloud_aws_gcp
+
+conocimiento:
+  ruta: "especialistas/infraestructura/conocimiento/"
+  fuentes:
+    - id: ESP-INF-CNO-001-personal
+      tipo: personal
+    - id: ESP-INF-CNO-002-estandares
+      tipo: estandares
+
+memoria:
+  ruta: "especialistas/infraestructura/memoria/"
+  archivo: ESP-INF-MEM-001-memoria.db
+
+herramientas:
+  config: "especialistas/infraestructura/herramientas/ESP-INF-HER-001-herramientas.yaml"
+  habilitadas: [shell_exec, filesystem, git, docker_cli, kubectl, http_client]
+
+routing:
+  namespace: /infra
+  aliases: [/infrastructure, /devops, /kubernetes]
+
+config:
+  modelos:
+    director: glm-5
+    ejecutor: glm-5
+    archivador: glm-4.7

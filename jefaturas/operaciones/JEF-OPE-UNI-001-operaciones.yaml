@@ -1,0 +1,39 @@
+# Unidad: Jefe de Operaciones
+
+**ID:** JEF-OPE-UNI-001-operaciones
+**Nivel:** Jefatura (1)
+**Dominio:** Operaciones
+**Tipo:** Unidad
+**Versión:** 2.1.0
+
+id: JEF-OPE-UNI-001-operaciones
+nombre: "Jefe de Operaciones"
+descripcion: "Jefe de dominios de operaciones: Hostelería"
+
+dominios:
+  - ESP-HOS-UNI-001-hosteleria
+
+namespaces:
+  - /hosteleria
+  - /fnb
+  - /f&b
+  - /gastronomia
+
+responsabilidades:
+  - supervisar_operaciones_hosteleria
+  - aprobar_procedimientos
+  - gestionar_calidad_servicio
+
+conocimiento:
+  ruta: "jefaturas/operaciones/conocimiento/"
+
+memoria:
+  ruta: "jefaturas/operaciones/memoria/"
+  archivo: JEF-OPE-MEM-001-memoria.db
+
+herramientas:
+  propias: [gpt_researcher, engram]
+
+config:
+  modelo: glm-5
+  temperatura: 0.7

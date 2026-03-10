@@ -1,0 +1,53 @@
+# Unidad: Especialista de Finanzas
+
+**ID:** ESP-FIN-UNI-001-finanzas
+**Nivel:** Especialista (2)
+**Dominio:** Finanzas
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-REX-UNI-001-relaciones_externas
+
+id: ESP-FIN-UNI-001-finanzas
+nombre: "Unidad de Finanzas"
+descripcion: "Unidad especializada en inversiones, mercados y análisis financiero"
+namespace: /inversiones
+
+triagente:
+  patron: triunvirato
+  director: ESP-FIN-DIR-001-director
+  ejecutor: ESP-FIN-EJE-001-ejecutor
+  archivador: ESP-FIN-ARC-001-archivador
+
+especialidades:
+  - analisis_financiero
+  - inversiones
+  - mercados_acciones
+  - gestion_cartera
+  - analisis_tecnico
+  - fundamentales
+
+conocimiento:
+  ruta: "especialistas/finanzas/conocimiento/"
+  fuentes:
+    - id: ESP-FIN-CNO-001-personal
+      tipo: personal
+    - id: ESP-FIN-CNO-002-estandares
+      tipo: estandares
+
+memoria:
+  ruta: "especialistas/finanzas/memoria/"
+  archivo: ESP-FIN-MEM-001-memoria.db
+
+herramientas:
+  config: "especialistas/finanzas/herramientas/ESP-FIN-HER-001-herramientas.yaml"
+  habilitadas: [shell_exec, http_client, gpt_researcher, maestro]
+
+routing:
+  namespace: /inversiones
+  aliases: [/finanzas, /inversion, /bolsa]
+
+config:
+  modelos:
+    director: glm-5
+    ejecutor: glm-5
+    archivador: glm-4.7

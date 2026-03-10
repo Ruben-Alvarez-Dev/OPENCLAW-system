@@ -1,0 +1,38 @@
+# Unidad: Jefe de Ingeniería
+
+**ID:** JEF-ING-UNI-001-ingenieria
+**Nivel:** Jefatura (1)
+**Dominio:** Ingeniería
+**Tipo:** Unidad
+**Versión:** 2.1.0
+
+id: JEF-ING-UNI-001-ingenieria
+nombre: "Jefe de Ingeniería"
+descripcion: "Jefe de dominios de ingeniería: Desarrollo e Infraestructura"
+
+dominios:
+  - ESP-DES-UNI-001-desarrollo
+  - ESP-INF-UNI-001-infraestructura
+
+namespaces:
+  - /dev
+  - /infra
+
+responsabilidades:
+  - supervisar_calidad_tecnica
+  - aprobar_arquitecturas
+  - resolver_conflictos_tecnicos
+
+conocimiento:
+  ruta: "jefaturas/ingenieria/conocimiento/"
+
+memoria:
+  ruta: "jefaturas/ingenieria/memoria/"
+  archivo: JEF-ING-MEM-001-memoria.db
+
+herramientas:
+  propias: [gpt_researcher, engram]
+
+config:
+  modelo: glm-5
+  temperatura: 0.7

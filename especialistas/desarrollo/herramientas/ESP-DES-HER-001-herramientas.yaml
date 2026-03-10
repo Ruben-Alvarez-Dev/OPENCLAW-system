@@ -1,0 +1,46 @@
+# Herramientas: Unidad de Desarrollo
+
+**ID:** ESP-DES-HER-001-herramientas
+**Nivel:** Especialista (2)
+**Dominio:** Desarrollo
+**Tipo:** Herramientas
+**Versión:** 2.1.0
+
+shell_exec:
+  habilitado: true
+  sandbox: true
+  timeout_ms: 60000
+
+filesystem:
+  habilitado: true
+  ruta_base: ~/projects
+  operaciones:
+    read: {habilitado: true, requiere_aprobacion: false}
+    write: {habilitado: true, requiere_aprobacion: false}
+    delete: {habilitado: true, requiere_aprobacion: true}
+
+git:
+  habilitado: true
+  operaciones:
+    status: {habilitado: true, requiere_aprobacion: false}
+    commit: {habilitado: true, requiere_aprobacion: true}
+    push: {habilitado: true, requiere_aprobacion: true}
+
+npm_cli:
+  habilitado: true
+  comandos:
+    install: {habilitado: true, requiere_aprobacion: false}
+    build: {habilitado: true, requiere_aprobacion: false}
+    test: {habilitado: true, requiere_aprobacion: false}
+
+docker_cli:
+  habilitado: true
+  comandos:
+    build: {habilitado: true, requiere_aprobacion: false}
+    run: {habilitado: true, requiere_aprobacion: false}
+
+http_client:
+  habilitado: true
+  metodos:
+    GET: {habilitado: true, requiere_aprobacion: false}
+    POST: {habilitado: true, requiere_aprobacion: false}
