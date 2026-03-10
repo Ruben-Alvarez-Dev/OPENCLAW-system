@@ -1,0 +1,51 @@
+# Unidad: Especialista General
+
+**ID:** ESP-GEN-UNI-001-general
+**Nivel:** Especialista (2)
+**Dominio:** General
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-CON-UNI-001-conocimiento
+
+id: ESP-GEN-UNI-001-general
+nombre: "Unidad General"
+descripcion: "Unidad para consultas generales, ayuda y dominios no específicos"
+namespace: /general
+
+triagente:
+  patron: triunvirato
+  director: ESP-GEN-DIR-001-director
+  ejecutor: ESP-GEN-EJE-001-ejecutor
+  archivador: ESP-GEN-ARC-001-archivador
+
+especialidades:
+  - consultas_generales
+  - ayuda_sistema
+  - informacion_general
+  - orientacion
+
+conocimiento:
+  ruta: "especialistas/general/conocimiento/"
+  fuentes:
+    - id: ESP-GEN-CNO-001-personal
+      tipo: personal
+    - id: ESP-GEN-CNO-002-estandares
+      tipo: estandares
+
+memoria:
+  ruta: "especialistas/general/memoria/"
+  archivo: ESP-GEN-MEM-001-memoria.db
+
+herramientas:
+  config: "especialistas/general/herramientas/ESP-GEN-HER-001-herramientas.yaml"
+  habilitadas: [shell_exec, filesystem, http_client, gpt_researcher, engram]
+
+routing:
+  namespace: /general
+  aliases: [/default, /ayuda, /help]
+
+config:
+  modelos:
+    director: glm-5
+    ejecutor: glm-5
+    archivador: glm-4.7

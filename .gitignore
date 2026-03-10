@@ -1,0 +1,59 @@
+# OPENCLAW-system .gitignore
+
+# ===========================================
+# CREDENCIALES Y SECRETS - NUNCA COMMITTEAR
+# ===========================================
+
+# Configuración local de Claude Code (contiene tokens reales)
+.claude/settings.local.json
+.claude/settings.mcp-*.json
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+*.env
+
+# Secrets y keys
+*.pem
+*.key
+secrets/
+.secrets/
+
+# ===========================================
+# SISTEMA OPERATIVO
+# ===========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ===========================================
+# DEPENDENCIAS Y BUILD
+# ===========================================
+node_modules/
+dist/
+build/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ===========================================
+# IDE Y EDITORES
+# ===========================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ===========================================
+# TMP Y CACHE
+# ===========================================
+tmp/
+temp/
+.cache/
+*.tmp

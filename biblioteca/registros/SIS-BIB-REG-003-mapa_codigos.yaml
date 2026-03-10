@@ -1,0 +1,298 @@
+# Mapa de Códigos de Serialización
+
+**ID:** SIS-BIB-REG-003-mapa_codigos
+**Nivel:** Sistema
+**Dominio:** Biblioteca
+**Tipo:** Registro
+**Versión:** 2.1.0
+**Actualizado:** 2026-03-09
+
+# ===========================================
+# FORMATO DE ID
+# ===========================================
+#
+#   LLL-DDD-TTT-SSS-nombre_descriptivo
+#   │││ │││ │││ └─── SSS: Secuencia (001-999)
+#   │││ │││ ││└──── TTT: Tipo (3 letras español, MAYÚSCULAS)
+#   │││ │││ └────── DDD: Dominio (3 letras español, MAYÚSCULAS)
+#   │││ └────────── LLL: Nivel (3 letras español, MAYÚSCULAS)
+#   └────────────── nombre_descriptivo: Minúsculas con guiones bajos
+#
+#   Ejemplo: ESP-DES-HER-001-herramientas
+#            │││ │││ │││ │││  └── nombre: herramientas
+#            │││ │││ │││ └──── secuencia: 001
+#            │││ │││ └─────── tipo: HER (herramientas)
+#            │││ └─────────── dominio: DES (desarrollo)
+#            └─────────────── nivel: ESP (especialista)
+#
+# ===========================================
+
+# ===========================================
+# NIVELES (LLL)
+# ===========================================
+
+niveles:
+  SIS:
+    codigo: "SIS"
+    nombre: "Sistema"
+    descripcion: "Nivel 0 - Configuración global, protocolos, plantillas"
+    nivel: 0
+
+  JEF:
+    codigo: "JEF"
+    nombre: "Jefatura"
+    descripcion: "Nivel 1 - Jefes de dominio (Catedráticos)"
+    nivel: 1
+
+  ESP:
+    codigo: "ESP"
+    nombre: "Especialista"
+    descripcion: "Nivel 2 - Unidades especializadas tri-agente"
+    nivel: 2
+
+  SUB:
+    codigo: "SUB"
+    nombre: "Subagente"
+    descripcion: "Nivel 3 - Agentes efímeros temporales"
+    nivel: 3
+
+# ===========================================
+# DOMINIOS (DDD)
+# ===========================================
+
+dominios:
+  # Sistema
+  SMA:
+    codigo: "SMA"
+    nombre: "Sistema"
+    nivel: SIS
+    descripcion: "Configuración del sistema"
+
+  BIB:
+    codigo: "BIB"
+    nombre: "Biblioteca"
+    nivel: SIS
+    descripcion: "Protocolos, plantillas, registros"
+
+  # Jefaturas
+  CON:
+    codigo: "CON"
+    nombre: "Conocimiento"
+    nivel: JEF
+    descripcion: "Jefe de Conocimiento"
+    dominios_dependientes: [ACA, GEN]
+
+  ING:
+    codigo: "ING"
+    nombre: "Ingeniería"
+    nivel: JEF
+    descripcion: "Jefe de Ingeniería"
+    dominios_dependientes: [DES, INF]
+
+  OPE:
+    codigo: "OPE"
+    nombre: "Operaciones"
+    nivel: JEF
+    descripcion: "Jefe de Operaciones"
+    dominios_dependientes: [HOS]
+
+  RHU:
+    codigo: "RHU"
+    nombre: "Recursos Humanos"
+    nivel: JEF
+    descripcion: "Jefe de Recursos Humanos"
+    dominios_dependientes: [DEP]
+
+  REX:
+    codigo: "REX"
+    nombre: "Relaciones Externas"
+    nivel: JEF
+    descripcion: "Jefe de Relaciones Externas"
+    dominios_dependientes: [CRI, FIN]
+
+  COM:
+    codigo: "COM"
+    nombre: "Comunicación"
+    nivel: JEF
+    descripcion: "Jefe de Comunicación"
+    dominios_dependientes: [IDI]
+
+  # Especialistas
+  DES:
+    codigo: "DES"
+    nombre: "Desarrollo"
+    nivel: ESP
+    descripcion: "Desarrollo de software, arquitectura"
+    jefe: ING
+    namespace: /dev
+
+  INF:
+    codigo: "INF"
+    nombre: "Infraestructura"
+    nivel: ESP
+    descripcion: "DevOps, servidores, despliegue"
+    jefe: ING
+    namespace: /infra
+
+  HOS:
+    codigo: "HOS"
+    nombre: "Hostelería"
+    nivel: ESP
+    descripcion: "Gastronomía, F&B, restauración"
+    jefe: OPE
+    namespace: /hosteleria
+
+  ACA:
+    codigo: "ACA"
+    nombre: "Académico"
+    nivel: ESP
+    descripcion: "Oposiciones, estudio, tutoría"
+    jefe: CON
+    namespace: /academico
+
+  GEN:
+    codigo: "GEN"
+    nombre: "General"
+    nivel: ESP
+    descripcion: "Consultas generales, ayuda"
+    jefe: CON
+    namespace: /general
+
+  CRI:
+    codigo: "CRI"
+    nombre: "Criptomonedas"
+    nivel: ESP
+    descripcion: "Blockchain, crypto, DeFi"
+    jefe: REX
+    namespace: /crypto
+
+  FIN:
+    codigo: "FIN"
+    nombre: "Finanzas"
+    nivel: ESP
+    descripcion: "Inversiones, mercados"
+    jefe: REX
+    namespace: /inversiones
+
+  DEP:
+    codigo: "DEP"
+    nombre: "Deportes"
+    nivel: ESP
+    descripcion: "Fitness, entrenamiento, salud"
+    jefe: RHU
+    namespace: /fitness
+
+  IDI:
+    codigo: "IDI"
+    nombre: "Idiomas"
+    nivel: ESP
+    descripcion: "Aprendizaje de idiomas"
+    jefe: COM
+    namespace: /english
+
+# ===========================================
+# TIPOS (TTT)
+# ===========================================
+
+tipos:
+  CFG:
+    codigo: "CFG"
+    nombre: "Configuración"
+    extension: .yaml
+    descripcion: "Archivos de configuración"
+
+  UNI:
+    codigo: "UNI"
+    nombre: "Unidad"
+    extension: .yaml
+    descripcion: "Perfil de unidad completa"
+
+  DIR:
+    codigo: "DIR"
+    nombre: "Director"
+    extension: .yaml
+    descripcion: "Agente Director/Planificador"
+
+  EJE:
+    codigo: "EJE"
+    nombre: "Ejecutor"
+    extension: .yaml
+    descripcion: "Agente Ejecutor"
+
+  ARC:
+    codigo: "ARC"
+    nombre: "Archivador"
+    extension: .yaml
+    descripcion: "Agente Archivador/Validador"
+
+  CNO:
+    codigo: "CNO"
+    nombre: "Conocimiento"
+    extension: .md
+    descripcion: "Fuentes de conocimiento"
+
+  MEM:
+    codigo: "MEM"
+    nombre: "Memoria"
+    extension: .db
+    descripcion: "Almacenamiento de memoria"
+
+  HER:
+    codigo: "HER"
+    nombre: "Herramientas"
+    extension: .yaml
+    descripcion: "Configuración de herramientas"
+
+  PRO:
+    codigo: "PRO"
+    nombre: "Protocolo"
+    extension: .md
+    descripcion: "Protocolos operativos"
+
+  PLA:
+    codigo: "PLA"
+    nombre: "Plantilla"
+    extension: .yaml
+    descripcion: "Plantillas reutilizables"
+
+  REG:
+    codigo: "REG"
+    nombre: "Registro"
+    extension: .yaml
+    descripcion: "Registros y catálogos"
+
+# ===========================================
+# EJEMPLOS DE IDS
+# ===========================================
+
+ejemplos:
+  sistema: SIS-SMA-CFG-001-sistema
+  protocolo: SIS-BIB-PRO-001-validacion
+  plantilla: SIS-BIB-PLA-001-especialista_base
+  jefatura: JEF-ING-UNI-001-ingenieria
+  especialista: ESP-DES-UNI-001-desarrollo
+  herramientas: ESP-DES-HER-001-herramientas
+  conocimiento: ESP-DES-CNO-001-personal
+  memoria: ESP-DES-MEM-001-memoria
+
+# ===========================================
+# MAPEO ANTERIOR → NUEVO
+# ===========================================
+
+migracion:
+  "0SYSC001": "SIS-SMA-CFG-001-sistema"
+  "1CKO001": "JEF-CON-UNI-001-conocimiento"
+  "1CNG001": "JEF-ING-UNI-001-ingenieria"
+  "1COO001": "JEF-OPE-UNI-001-operaciones"
+  "1CHO001": "JEF-RHU-UNI-001-recursos_humanos"
+  "1CSR001": "JEF-REX-UNI-001-relaciones_externas"
+  "1CCO001": "JEF-COM-UNI-001-comunicacion"
+  "2DEV001": "ESP-DES-UNI-001-desarrollo"
+  "2INF001": "ESP-INF-UNI-001-infraestructura"
+  "2HOS001": "ESP-HOS-UNI-001-hosteleria"
+  "2ACA001": "ESP-ACA-UNI-001-academico"
+  "2GEN001": "ESP-GEN-UNI-001-general"
+  "2CRY001": "ESP-CRI-UNI-001-criptomonedas"
+  "2FIN001": "ESP-FIN-UNI-001-finanzas"
+  "2FIT001": "ESP-DEP-UNI-001-deportes"
+  "2LAN001": "ESP-IDI-UNI-001-idiomas"

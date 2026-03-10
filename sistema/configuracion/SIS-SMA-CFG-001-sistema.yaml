@@ -1,0 +1,288 @@
+# Configuración del Sistema OPENCLAW
+
+**ID:** SIS-SMA-CFG-001-sistema
+**Nivel:** Sistema (0)
+**Dominio:** Sistema
+**Tipo:** Configuración
+**Versión:** 2.1.0
+**Actualizado:** 2026-03-09
+
+# ===========================================
+# INFORMACIÓN DEL SISTEMA
+# ===========================================
+
+id: SIS-SMA-CFG-001-sistema
+nombre: OPENCLAW System
+version: 2.1.0
+schema_version: 2.1
+creado: 2026-03-09
+actualizado: 2026-03-09
+
+# ===========================================
+# FORMATO DE ID
+# ===========================================
+
+formato_id:
+  patron: "LLL-DDD-TTT-SSS-nombre_descriptivo"
+  descripcion: "Nivel-Dominio-Tipo-Secuencia con nombre descriptivo"
+
+  componentes:
+    LLL:
+      descripcion: "Nivel (3 letras español)"
+      valores:
+        SIS: "Sistema (nivel 0)"
+        JEF: "Jefatura (nivel 1)"
+        ESP: "Especialista (nivel 2)"
+        SUB: "Subagente (nivel 3)"
+
+    DDD:
+      descripcion: "Dominio (3 letras español)"
+      valores:
+        # Sistema
+        SMA: "Sistema"
+        BIB: "Biblioteca"
+        # Jefaturas
+        CON: "Conocimiento"
+        ING: "Ingeniería"
+        OPE: "Operaciones"
+        RHU: "Recursos Humanos"
+        REX: "Relaciones Externas"
+        COM: "Comunicación"
+        # Especialistas
+        DES: "Desarrollo"
+        INF: "Infraestructura"
+        HOS: "Hostelería"
+        ACA: "Académico"
+        GEN: "General"
+        CRI: "Criptomonedas"
+        FIN: "Finanzas"
+        DEP: "Deportes"
+        IDI: "Idiomas"
+
+    TTT:
+      descripcion: "Tipo (3 letras español)"
+      valores:
+        CFG: "Configuración"
+        UNI: "Unidad"
+        DIR: "Director"
+        EJE: "Ejecutor"
+        ARC: "Archivador"
+        CNO: "Conocimiento"
+        MEM: "Memoria"
+        HER: "Herramientas"
+        PRO: "Protocolo"
+        PLA: "Plantilla"
+        REG: "Registro"
+
+    SSS:
+      descripcion: "Secuencia (001-999)"
+      patron: "\\d{3}"
+
+    nombre_descriptivo:
+      descripcion: "Nombre en minúsculas con guiones bajos"
+      patron: "[a-z_]+"
+
+# ===========================================
+# GATEWAY
+# ===========================================
+
+gateway:
+  bind: "127.0.0.1"
+  puerto: 18789
+
+  autenticacion:
+    modo: token
+    expiracion_token: null
+    refresh_token: false
+
+# ===========================================
+# PROVEEDORES
+# ===========================================
+
+proveedores:
+  primario: ollama
+  respaldo: []
+
+  ollama:
+    nombre: ollama
+    url_base: "http://127.0.0.1:11434"
+    modelos:
+      openclaw-llama32:
+        habilitado: true
+        ventana_contexto: 4096
+        max_salida: 8192
+        temperatura: 0.7
+    limite_tasa:
+      peticiones_por_minuto: 60
+    timeout: 60000
+
+# ===========================================
+# MEMORIA
+# ===========================================
+
+memoria:
+  habilitado: true
+
+  tipos:
+    agente:
+      backend: lancedb
+      retencion: permanente
+    unidad:
+      backend: sqlite
+      retencion: permanente
+    dominio:
+      backend: sqlite
+      retencion: permanente
+    global:
+      backend: sqlite
+      retencion: permanente
+
+  embedding:
+    modelo: nomic-embed-text
+    dimensiones: 768
+
+# ===========================================
+# SEGURIDAD
+# ===========================================
+
+seguridad:
+  aprobaciones_ejecucion:
+    habilitado: true
+    registrar_todo: true
+    ruta_auditoria: "~/.openclaw/audit/exec.log"
+
+  politica_bins_seguros:
+    habilitado: true
+    bins_prohibidos:
+      - mkfs
+      - fdisk
+      - parted
+      - dd
+      - shred
+      - iptables
+      - ip6tables
+      - nft
+      - systemctl
+      - reboot
+      - shutdown
+      - poweroff
+      - passwd
+      - chsh
+      - usermod
+      - userdel
+
+  sandbox:
+    habilitado: true
+    backend: docker
+    config:
+      network_mode: none
+      memoria: 512m
+      cpus: 1
+      usuario: nobody
+      filesystem_solo_lectura: true
+      cap_drop: ["ALL"]
+      security_opt: ["no-new-privileges"]
+
+# ===========================================
+# ENRUTAMIENTO DE DOMINIOS
+# ===========================================
+
+dominios:
+  ESP-DES-UNI-001-desarrollo:
+    namespace: /dev
+    jefe: JEF-ING-UNI-001-ingenieria
+    ruta: especialistas/desarrollo/
+
+  ESP-INF-UNI-001-infraestructura:
+    namespace: /infra
+    jefe: JEF-ING-UNI-001-ingenieria
+    ruta: especialistas/infraestructura/
+
+  ESP-HOS-UNI-001-hosteleria:
+    namespace: /hosteleria
+    alias: [/fnb, /f&b, /gastronomia]
+    jefe: JEF-OPE-UNI-001-operaciones
+    ruta: especialistas/hosteleria/
+
+  ESP-ACA-UNI-001-academico:
+    namespace: /academico
+    alias: [/oposiciones, /estudio, /tutor]
+    jefe: JEF-CON-UNI-001-conocimiento
+    ruta: especialistas/academico/
+
+  ESP-GEN-UNI-001-general:
+    namespace: /general
+    alias: [/default, /ayuda]
+    jefe: JEF-CON-UNI-001-conocimiento
+    ruta: especialistas/general/
+
+  ESP-CRI-UNI-001-criptomonedas:
+    namespace: /crypto
+    jefe: JEF-REX-UNI-001-relaciones_externas
+    ruta: especialistas/criptomonedas/
+
+  ESP-FIN-UNI-001-finanzas:
+    namespace: /inversiones
+    alias: [/finanzas, /inversion]
+    jefe: JEF-REX-UNI-001-relaciones_externas
+    ruta: especialistas/finanzas/
+
+  ESP-DEP-UNI-001-deportes:
+    namespace: /fitness
+    jefe: JEF-RHU-UNI-001-recursos_humanos
+    ruta: especialistas/deportes/
+
+  ESP-IDI-UNI-001-idiomas:
+    namespace: /english
+    alias: [/idiomas, /spanish, /french]
+    jefe: JEF-COM-UNI-001-comunicacion
+    ruta: especialistas/idiomas/
+
+# ===========================================
+# REGISTRO DE JEFATURAS
+# ===========================================
+
+jefaturas:
+  JEF-CON-UNI-001-conocimiento:
+    nombre: "Jefe de Conocimiento"
+    dominios: [ESP-ACA-UNI-001-academico, ESP-GEN-UNI-001-general]
+    ruta: jefaturas/conocimiento/
+
+  JEF-ING-UNI-001-ingenieria:
+    nombre: "Jefe de Ingeniería"
+    dominios: [ESP-DES-UNI-001-desarrollo, ESP-INF-UNI-001-infraestructura]
+    ruta: jefaturas/ingenieria/
+
+  JEF-OPE-UNI-001-operaciones:
+    nombre: "Jefe de Operaciones"
+    dominios: [ESP-HOS-UNI-001-hosteleria]
+    ruta: jefaturas/operaciones/
+
+  JEF-RHU-UNI-001-recursos_humanos:
+    nombre: "Jefe de Recursos Humanos"
+    dominios: [ESP-DEP-UNI-001-deportes]
+    ruta: jefaturas/recursos_humanos/
+
+  JEF-REX-UNI-001-relaciones_externas:
+    nombre: "Jefe de Relaciones Externas"
+    dominios: [ESP-CRI-UNI-001-criptomonedas, ESP-FIN-UNI-001-finanzas]
+    ruta: jefaturas/relaciones_externas/
+
+  JEF-COM-UNI-001-comunicacion:
+    nombre: "Jefe de Comunicación"
+    dominios: [ESP-IDI-UNI-001-idiomas]
+    ruta: jefaturas/comunicacion/
+
+# ===========================================
+# LOGGING
+# ===========================================
+
+logging:
+  nivel: info
+  formato: json
+  entorno: produccion
+  salida:
+    - tipo: archivo
+      ruta: ~/.openclaw/logs/openclaw.log
+    - tipo: consola
+      colores: true

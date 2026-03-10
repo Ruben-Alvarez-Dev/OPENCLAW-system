@@ -1,0 +1,54 @@
+# Unidad: Especialista de Desarrollo
+
+**ID:** ESP-DES-UNI-001-desarrollo
+**Nivel:** Especialista (2)
+**Dominio:** Desarrollo
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-ING-UNI-001-ingenieria
+
+id: ESP-DES-UNI-001-desarrollo
+nombre: "Unidad de Desarrollo"
+descripcion: "Unidad especializada en desarrollo de software y arquitectura"
+namespace: /dev
+
+triagente:
+  patron: triunvirato
+  director: ESP-DES-DIR-001-director
+  ejecutor: ESP-DES-EJE-001-ejecutor
+  archivador: ESP-DES-ARC-001-archivador
+
+especialidades:
+  - desarrollo_fullstack
+  - arquitectura_software
+  - testing_automatizado
+  - apis_rest_graphql
+
+lenguajes: [python, javascript, typescript, golang, rust]
+frameworks: [react, vue, nodejs, fastapi, django]
+
+conocimiento:
+  ruta: "especialistas/desarrollo/conocimiento/"
+  fuentes:
+    - id: ESP-DES-CNO-001-personal
+      tipo: personal
+    - id: ESP-DES-CNO-002-estandares
+      tipo: estandares
+
+memoria:
+  ruta: "especialistas/desarrollo/memoria/"
+  archivo: ESP-DES-MEM-001-memoria.db
+
+herramientas:
+  config: "especialistas/desarrollo/herramientas/ESP-DES-HER-001-herramientas.yaml"
+  habilitadas: [shell_exec, filesystem, git, npm_cli, docker_cli, http_client]
+
+routing:
+  namespace: /dev
+  aliases: [/development, /codigo, /programacion]
+
+config:
+  modelos:
+    director: glm-5
+    ejecutor: glm-5
+    archivador: glm-4.7

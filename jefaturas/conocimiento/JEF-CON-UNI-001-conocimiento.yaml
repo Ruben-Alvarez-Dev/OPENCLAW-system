@@ -1,0 +1,43 @@
+# Unidad: Jefe de Conocimiento
+
+**ID:** JEF-CON-UNI-001-conocimiento
+**Nivel:** Jefatura (1)
+**Dominio:** Conocimiento
+**Tipo:** Unidad
+**Versión:** 2.1.0
+
+id: JEF-CON-UNI-001-conocimiento
+nombre: "Jefe de Conocimiento"
+descripcion: "Jefe de dominios de conocimiento: Académico y General"
+
+dominios:
+  - ESP-ACA-UNI-001-academico
+  - ESP-GEN-UNI-001-general
+
+namespaces:
+  - /academico
+  - /oposiciones
+  - /estudio
+  - /tutor
+  - /general
+  - /default
+  - /ayuda
+
+responsabilidades:
+  - gestionar_base_conocimiento
+  - supervisar_calidad_informacion
+  - curar_fuentes_academicas
+
+conocimiento:
+  ruta: "jefaturas/conocimiento/conocimiento/"
+
+memoria:
+  ruta: "jefaturas/conocimiento/memoria/"
+  archivo: JEF-CON-MEM-001-memoria.db
+
+herramientas:
+  propias: [gpt_researcher, engram]
+
+config:
+  modelo: glm-5
+  temperatura: 0.7

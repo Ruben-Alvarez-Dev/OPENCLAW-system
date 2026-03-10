@@ -1,0 +1,40 @@
+# Unidad: Especialista de Hostelería
+
+**ID:** ESP-HOS-UNI-001-hosteleria
+**Nivel:** Especialista (2)
+**Dominio:** Hostelería
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-OPE-UNI-001-operaciones
+
+id: ESP-HOS-UNI-001-hosteleria
+nombre: "Unidad de Hostelería"
+descripcion: "Unidad especializada en gastronomía, restauración y F&B"
+namespace: /hosteleria
+
+triagente:
+  patron: triunvirato
+  director: ESP-HOS-DIR-001-director
+  ejecutor: ESP-HOS-EJE-001-ejecutor
+  archivador: ESP-HOS-ARC-001-archivador
+
+especialidades:
+  - cocina_tradicional
+  - cocina_moderna
+  - pasteleria
+  - gestion_restaurante
+  - escandallos
+
+conocimiento:
+  ruta: "especialistas/hosteleria/conocimiento/"
+
+memoria:
+  ruta: "especialistas/hosteleria/memoria/"
+  archivo: ESP-HOS-MEM-001-memoria.db
+
+herramientas:
+  habilitadas: [shell_exec, filesystem, http_client, database]
+
+routing:
+  namespace: /hosteleria
+  aliases: [/fnb, /f&b, /gastronomia]

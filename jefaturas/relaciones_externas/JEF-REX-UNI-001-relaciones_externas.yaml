@@ -1,0 +1,39 @@
+# Unidad: Jefe de Relaciones Externas
+
+**ID:** JEF-REX-UNI-001-relaciones_externas
+**Nivel:** Jefatura (1)
+**Dominio:** Relaciones Externas
+**Tipo:** Unidad
+**Versión:** 2.1.0
+
+id: JEF-REX-UNI-001-relaciones_externas
+nombre: "Jefe de Relaciones Externas"
+descripcion: "Jefe de dominios externos: Criptomonedas y Finanzas"
+
+dominios:
+  - ESP-CRI-UNI-001-criptomonedas
+  - ESP-FIN-UNI-001-finanzas
+
+namespaces:
+  - /crypto
+  - /inversiones
+  - /finanzas
+
+responsabilidades:
+  - supervisar_analisis_mercados
+  - aprobar_estrategias_inversion
+  - verificar_fuentes_informacion
+
+conocimiento:
+  ruta: "jefaturas/relaciones_externas/conocimiento/"
+
+memoria:
+  ruta: "jefaturas/relaciones_externas/memoria/"
+  archivo: JEF-REX-MEM-001-memoria.db
+
+herramientas:
+  propias: [gpt_researcher, maestro, engram]
+
+config:
+  modelo: glm-5
+  temperatura: 0.7

@@ -1,0 +1,131 @@
+# Registro: Habilidades
+
+**ID:** SIS-BIB-REG-001-habilidades
+**Nivel:** Sistema
+**Dominio:** Biblioteca
+**Tipo:** Registro
+**Versión:** 2.1.0
+
+# ===========================================
+# CATÁLOGO DE HABILIDADES
+# ===========================================
+
+habilidades:
+  # Desarrollo
+  programacion:
+    id: HAB-001
+    nombre: "Programación"
+    dominios: [DES]
+    subhabilidades: [python, javascript, typescript, golang, rust]
+
+  arquitectura:
+    id: HAB-002
+    nombre: "Arquitectura de Software"
+    dominios: [DES, INF]
+    subhabilidades: [microservicios, monolitos_modulares, event_driven]
+
+  testing:
+    id: HAB-003
+    nombre: "Testing"
+    dominios: [DES]
+    subhabilidades: [unitarias, integracion, e2e]
+
+  # Infraestructura
+  devops:
+    id: HAB-004
+    nombre: "DevOps"
+    dominios: [INF]
+    subhabilidades: [ci_cd, contenedores, orquestacion]
+
+  cloud:
+    id: HAB-005
+    nombre: "Cloud Computing"
+    dominios: [INF]
+    subhabilidades: [aws, gcp, azure, terraform]
+
+  kubernetes:
+    id: HAB-006
+    nombre: "Kubernetes"
+    dominios: [INF]
+    subhabilidades: [deployment, servicios, helm]
+
+  # Hostelería
+  gastronomia:
+    id: HAB-007
+    nombre: "Gastronomía"
+    dominios: [HOS]
+    subhabilidades: [cocina_tradicional, cocina_moderna, pasteleria]
+
+  gestion_restaurante:
+    id: HAB-008
+    nombre: "Gestión de Restaurante"
+    dominios: [HOS]
+    subhabilidades: [escandallos, inventario, costes]
+
+  # Criptomonedas
+  blockchain:
+    id: HAB-009
+    nombre: "Blockchain"
+    dominios: [CRI]
+    subhabilidades: [ethereum, solidity, defi, nfts]
+
+  analisis_mercado:
+    id: HAB-010
+    nombre: "Análisis de Mercado"
+    dominios: [CRI, FIN]
+    subhabilidades: [analisis_tecnico, on_chain, fundamentales]
+
+  # Finanzas
+  inversion:
+    id: HAB-011
+    nombre: "Inversión"
+    dominios: [FIN]
+    subhabilidades: [acciones, bonos, etfs]
+
+  # Deportes
+  entrenamiento:
+    id: HAB-012
+    nombre: "Entrenamiento Físico"
+    dominios: [DEP]
+    subhabilidades: [fuerza, hipertrofia, resistencia]
+
+  nutricion:
+    id: HAB-013
+    nombre: "Nutrición Deportiva"
+    dominios: [DEP]
+    subhabilidades: [macros, suplementacion]
+
+  # Idiomas
+  ingles:
+    id: HAB-014
+    nombre: "Inglés"
+    dominios: [IDI]
+    subhabilidades: [gramatica, vocabulario, conversacion]
+
+  # Académico
+  estudio:
+    id: HAB-015
+    nombre: "Técnicas de Estudio"
+    dominios: [ACA]
+    subhabilidades: [pomodoro, mapas_mentales, repaso_espaciado]
+
+  oposiciones:
+    id: HAB-016
+    nombre: "Preparación Oposiciones"
+    dominios: [ACA]
+    subhabilidades: [temarios, supuestos_practicos]
+
+# ===========================================
+# MAPEO DOMINIO → HABILIDADES
+# ===========================================
+
+por_dominio:
+  DES: [programacion, arquitectura, testing]
+  INF: [devops, cloud, kubernetes]
+  HOS: [gastronomia, gestion_restaurante]
+  CRI: [blockchain, analisis_mercado]
+  FIN: [inversion, analisis_mercado]
+  DEP: [entrenamiento, nutricion]
+  IDI: [ingles]
+  ACA: [estudio, oposiciones]
+  GEN: [programacion, estudio]

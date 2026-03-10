@@ -1,0 +1,46 @@
+# Plantilla: Tri-Agente Estándar
+
+**ID:** SIS-BIB-PLA-002-triagente_estandar
+**Nivel:** Sistema
+**Dominio:** Biblioteca
+**Tipo:** Plantilla
+**Versión:** 2.1.0
+
+id: SIS-BIB-PLA-002-triagente_estandar
+nombre: "Plantilla Tri-Agente Estándar"
+descripcion: "Template para crear estructuras tri-agente completas"
+
+# ===========================================
+# PATRÓN TRI-AGENTE
+# ===========================================
+
+patron:
+  nombre: "Triunvirato"
+  principios:
+    - separacion_poderes: "Planificación ≠ Ejecución ≠ Validación"
+    - validacion_cruzada: "Cada agente verifica al otro"
+    - responsabilidad_unica: "Un rol, una función clara"
+
+# ===========================================
+# CICLO DE VIDA
+# ===========================================
+
+ciclo_vida:
+  1_recepcion: {actor: director}
+  2_planificacion: {actor: director, output: plan}
+  3_delegacion: {actor: director, destino: ejecutor}
+  4_ejecucion: {actor: ejecutor, output: resultado}
+  5_validacion: {actor: archivador}
+  6_memorizacion: {actor: archivador}
+  7_entrega: {actor: director}
+
+# ===========================================
+# VALIDACIÓN
+# ===========================================
+
+validacion:
+  niveles: [sintaxis, semantica, completitud, calidad]
+  umbrales:
+    aprobacion_automatica: 8
+    revision_manual: 6
+    rechazo: 0

@@ -1,0 +1,37 @@
+# Unidad: Jefe de Recursos Humanos
+
+**ID:** JEF-RHU-UNI-001-recursos_humanos
+**Nivel:** Jefatura (1)
+**Dominio:** Recursos Humanos
+**Tipo:** Unidad
+**Versión:** 2.1.0
+
+id: JEF-RHU-UNI-001-recursos_humanos
+nombre: "Jefe de Recursos Humanos"
+descripcion: "Jefe de dominios humanos: Deportes y Agent Factory"
+
+dominios:
+  - ESP-DEP-UNI-001-deportes
+
+namespaces:
+  - /fitness
+
+responsabilidades:
+  - supervisar_bienestar
+  - gestionar_agent_factory
+  - crear_nuevos_especialistas
+
+conocimiento:
+  ruta: "jefaturas/recursos_humanos/conocimiento/"
+
+memoria:
+  ruta: "jefaturas/recursos_humanos/memoria/"
+  archivo: JEF-RHU-MEM-001-memoria.db
+
+herramientas:
+  propias: [gpt_researcher, engram]
+  especiales: [agent_factory]
+
+config:
+  modelo: glm-5
+  temperatura: 0.7

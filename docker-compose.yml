@@ -1,0 +1,234 @@
+# =============================================================================
+# OPENCLAW-system - Docker Compose for Development/Production
+# =============================================================================
+# Arquitectura: Concilio Tri-Agente (Director + Ejecutor + Archivador)
+# Comunicación: Redis Pub/Sub
+# Memoria: LanceDB (vectorial)
+# Gateway: Fastify + WebSocket
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ===========================================================================
+  # CONCILIO TRI-AGENTE (3 Procesos Node.js)
+  # ===========================================================================
+
+  director:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+      args:
+        AGENT_ROLE: director
+    container_name: openclaw-director
+    ports:
+      - "8081:8081"
+    environment:
+      - AGENT_ROLE=director
+      - REDIS_URL=redis://redis:6379
+      - GATEWAY_URL=ws://gateway:18789
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      - redis
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8081/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  ejecutor:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+      args:
+        AGENT_ROLE: ejecutor
+    container_name: openclaw-ejecutor
+    ports:
+      - "8082:8082"
+    environment:
+      - AGENT_ROLE=ejecutor
+      - REDIS_URL=redis://redis:6379
+      - GATEWAY_URL=ws://gateway:18789
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      # LLM Provider (configure in .env)
+      - ZHIPUAI_API_KEY=${ZHIPUAI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+    depends_on:
+      - redis
+      - director
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8082/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  archivador:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+      args:
+        AGENT_ROLE: archivador
+    container_name: openclaw-archivador
+    ports:
+      - "8083:8083"
+    environment:
+      - AGENT_ROLE=archivador
+      - REDIS_URL=redis://redis:6379
+      - GATEWAY_URL=ws://gateway:18789
+      - LANCEDB_PATH=/data/lancedb
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    volumes:
+      - lancedb-data:/data/lancedb
+    depends_on:
+      - redis
+      - ejecutor
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8083/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # ===========================================================================
+  # GATEWAY (Fastify + WebSocket)
+  # ===========================================================================
+
+  gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile.gateway
+    container_name: openclaw-gateway
+    ports:
+      - "127.0.0.1:18789:18789"  # Solo localhost, no exponer a internet
+    environment:
+      - REDIS_URL=redis://redis:6379
+      - GATEWAY_TOKEN=${GATEWAY_TOKEN:-}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      - redis
+      - director
+      - ejecutor
+      - archivador
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:18789/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ===========================================================================
+  # INFRAESTRUCTURA CORE
+  # ===========================================================================
+
+  redis:
+    image: redis:7-alpine
+    container_name: openclaw-redis
+    ports:
+      - "127.0.0.1:6379:6379"  # Solo localhost
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ===========================================================================
+  # OPCIONAL: Ollama para LLM local
+  # ===========================================================================
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: openclaw-ollama
+    ports:
+      - "127.0.0.1:11434:11434"  # Solo localhost
+    volumes:
+      - ollama-data:/root/.ollama
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    profiles:
+      - local-llm
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # ===========================================================================
+  # OPCIONAL: Monitoreo (Prometheus + Grafana)
+  # ===========================================================================
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: openclaw-prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: openclaw-grafana
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    networks:
+      - openclaw-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+networks:
+  openclaw-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  lancedb-data:
+  ollama-data:
+  prometheus-data:
+  grafana-data:

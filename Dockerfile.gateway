@@ -1,0 +1,70 @@
+# =============================================================================
+# OPENCLAW-system - Dockerfile para Gateway Fastify
+# =============================================================================
+# Gateway WebSocket + HTTP para el Concilio Tri-Agente
+# Puerto: 18789 (NO exponer a internet)
+# =============================================================================
+
+# ============================================
+# Stage 1: Builder
+# ============================================
+FROM node:23-alpine AS builder
+
+WORKDIR /app
+
+# Install build dependencies
+RUN apk add --no-cache python3 make g++
+
+# Copy package files
+COPY package.json pnpm-lock.yaml ./
+
+# Install pnpm
+RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile --prod=false
+
+# Copy source code
+COPY tsconfig.json ./
+COPY src/ ./src/
+
+# Build TypeScript
+RUN pnpm build || npm run build
+
+# ============================================
+# Stage 2: Runtime
+# ============================================
+FROM node:23-alpine AS runtime
+
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup -g 1001 openclaw && \
+    adduser -D -u 1001 -G openclaw openclaw
+
+# Install pnpm in runtime
+RUN corepack enable && corepack prepare pnpm@10.23.0 --activate
+
+# Copy built application
+COPY --from=builder --chown=openclaw:openclaw /app/dist ./dist
+COPY --from=builder --chown=openclaw:openclaw /app/node_modules ./node_modules
+COPY --from=builder --chown=openclaw:openclaw /app/package.json ./
+
+# Set environment
+ENV NODE_ENV=production
+ENV GATEWAY_BIND=0.0.0.0
+ENV GATEWAY_PORT=18789
+ENV LOG_LEVEL=info
+
+# Switch to non-root user
+USER openclaw
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget -q --spider http://localhost:18789/health || exit 1
+
+# Expose gateway port (bind to localhost only in docker-compose)
+EXPOSE 18789
+
+# Run the gateway
+CMD ["node", "dist/gateway/index.js"]

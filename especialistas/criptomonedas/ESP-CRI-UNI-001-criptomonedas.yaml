@@ -1,0 +1,40 @@
+# Unidad: Especialista de Criptomonedas
+
+**ID:** ESP-CRI-UNI-001-criptomonedas
+**Nivel:** Especialista (2)
+**Dominio:** Criptomonedas
+**Tipo:** Unidad
+**Versión:** 2.1.0
+**Jefe:** JEF-REX-UNI-001-relaciones_externas
+
+id: ESP-CRI-UNI-001-criptomonedas
+nombre: "Unidad de Criptomonedas"
+descripcion: "Unidad especializada en blockchain, DeFi y análisis crypto"
+namespace: /crypto
+
+triagente:
+  patron: triunvirato
+  director: ESP-CRI-DIR-001-director
+  ejecutor: ESP-CRI-EJE-001-ejecutor
+  archivador: ESP-CRI-ARC-001-archivador
+
+especialidades:
+  - blockchain
+  - ethereum
+  - defi
+  - smart_contracts
+  - analisis_on_chain
+
+conocimiento:
+  ruta: "especialistas/criptomonedas/conocimiento/"
+
+memoria:
+  ruta: "especialistas/criptomonedas/memoria/"
+  archivo: ESP-CRI-MEM-001-memoria.db
+
+herramientas:
+  habilitadas: [shell_exec, http_client, gpt_researcher, maestro, database]
+
+routing:
+  namespace: /crypto
+  aliases: [/blockchain, /defi]

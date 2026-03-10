@@ -1,0 +1,93 @@
+# Registro: Herramientas
+
+**ID:** SIS-BIB-REG-002-herramientas
+**Nivel:** Sistema
+**Dominio:** Biblioteca
+**Tipo:** Registro
+**Versión:** 2.1.0
+
+# ===========================================
+# CATÁLOGO DE HERRAMIENTAS
+# ===========================================
+
+herramientas:
+  shell_exec:
+    id: HER-001
+    nombre: "Ejecución Shell"
+    tipo: sistema
+    riesgo: medio
+
+  filesystem:
+    id: HER-002
+    nombre: "Sistema de Archivos"
+    tipo: sistema
+    riesgo: medio
+
+  git:
+    id: HER-003
+    nombre: "Git"
+    tipo: desarrollo
+    riesgo: bajo
+
+  npm_cli:
+    id: HER-004
+    nombre: "NPM"
+    tipo: desarrollo
+    riesgo: bajo
+
+  docker_cli:
+    id: HER-005
+    nombre: "Docker"
+    tipo: infraestructura
+    riesgo: medio
+
+  kubectl:
+    id: HER-006
+    nombre: "Kubectl"
+    tipo: infraestructura
+    riesgo: alto
+
+  http_client:
+    id: HER-007
+    nombre: "Cliente HTTP"
+    tipo: comunicacion
+    riesgo: bajo
+
+  gpt_researcher:
+    id: HER-008
+    nombre: "GPT Researcher"
+    tipo: investigacion
+    riesgo: bajo
+
+  maestro:
+    id: HER-009
+    nombre: "MAESTRO"
+    tipo: investigacion
+    riesgo: bajo
+
+  engram:
+    id: HER-010
+    nombre: "Engram"
+    tipo: memoria
+    riesgo: bajo
+
+  database:
+    id: HER-011
+    nombre: "Base de Datos"
+    tipo: datos
+    riesgo: alto
+
+# ===========================================
+# MAPEO DOMINIO → HERRAMIENTAS
+# ===========================================
+
+por_dominio:
+  DES: [shell_exec, filesystem, git, npm_cli, docker_cli, http_client, database]
+  INF: [shell_exec, filesystem, git, docker_cli, kubectl, http_client]
+  HOS: [shell_exec, filesystem, http_client, database]
+  CRI: [shell_exec, http_client, gpt_researcher, maestro, database]
+  FIN: [shell_exec, http_client, gpt_researcher, maestro]
+  DEP: [shell_exec, filesystem, http_client, database]
+  IDI: [shell_exec, filesystem, http_client]
+  ACA: [shell_exec, filesystem, gpt_researcher, maestro, engram]
+  GEN: [shell_exec, filesystem, http_client, gpt_researcher, engram]

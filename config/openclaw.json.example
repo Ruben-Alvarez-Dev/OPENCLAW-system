@@ -1,0 +1,162 @@
+{
+  "$schema": "https://openclaw.ai/schemas/config-v1.json",
+  "version": "1.0.0",
+  "name": "openclaw-system",
+
+  "system": {
+    "logLevel": "info",
+    "logFormat": "json",
+    "environment": "production"
+  },
+
+  "gateway": {
+    "bind": "127.0.0.1",
+    "port": 18789,
+    "auth": {
+      "mode": "token",
+      "tokenExpiry": null,
+      "refreshToken": false
+    }
+  },
+
+  "providers": {
+    "primary": "ollama",
+    "fallback": [],
+
+    "ollama": {
+      "name": "ollama",
+      "baseUrl": "http://127.0.0.1:11434",
+      "models": {
+        "llama3.2:3b": {
+          "enabled": true,
+          "contextWindow": 4096,
+          "maxOutput": 2048,
+          "temperature": 0.7
+        },
+        "openclaw-llama32": {
+          "enabled": true,
+          "contextWindow": 4096,
+          "maxOutput": 2048,
+          "temperature": 0.7
+        }
+      },
+      "rateLimit": {
+        "requestsPerMinute": 60
+      },
+      "timeout": 60000
+    }
+  },
+
+  "memory": {
+    "enabled": true,
+    "types": {
+      "agent": {
+        "backend": "lancedb",
+        "retention": "permanent"
+      },
+      "unit": {
+        "backend": "sqlite",
+        "retention": "permanent"
+      },
+      "domain": {
+        "backend": "sqlite",
+        "retention": "permanent"
+      },
+      "global": {
+        "backend": "sqlite",
+        "retention": "permanent"
+      }
+    },
+    "embedding": {
+      "model": "nomic-embed-text",
+      "dimensions": 768
+    }
+  },
+
+  "security": {
+    "execApprovals": {
+      "enabled": true,
+      "logAll": true,
+      "auditPath": "~/.openclaw/audit/exec.log"
+    },
+
+    "safeBinPolicy": {
+      "enabled": true,
+      "forbiddenBins": [
+        "mkfs", "fdisk", "parted",
+        "dd", "shred",
+        "iptables", "ip6tables", "nft",
+        "systemctl",
+        "reboot", "shutdown", "poweroff",
+        "passwd", "chsh", "usermod", "userdel"
+      ]
+    },
+
+    "sandbox": {
+      "enabled": true,
+      "backend": "docker",
+      "config": {
+        "networkMode": "none",
+        "memory": "512m",
+        "cpus": 1,
+        "user": "nobody",
+        "readOnlyRootFilesystem": true,
+        "capDrop": ["ALL"],
+        "securityOpt": ["no-new-privileges"]
+      }
+    }
+  },
+
+  "domains": {
+    "/dev": {
+      "chief": "cengo",
+      "unit": "DEV-001",
+      "description": "Development, coding, architecture"
+    },
+    "/infra": {
+      "chief": "cengo",
+      "unit": "INFRA-001",
+      "description": "Infrastructure, DevOps, servers"
+    },
+    "/hosteleria": {
+      "chief": "coo",
+      "unit": "HOST-001",
+      "aliases": ["/fnb", "/f&b", "/gastronomia"],
+      "description": "Hospitality, F&B, gastronomy"
+    },
+    "/academico": {
+      "chief": "cko",
+      "unit": "ACAD-001",
+      "aliases": ["/oposiciones", "/estudio", "/tutor"],
+      "description": "Academic, exam preparation, oposiciones"
+    },
+    "/general": {
+      "chief": "cko",
+      "unit": "GEN-001",
+      "aliases": ["/default", "/ayuda"],
+      "description": "General purpose, fallback"
+    },
+    "/crypto": {
+      "chief": "csro",
+      "unit": "CRYP-001",
+      "description": "Cryptocurrency, blockchain, DeFi"
+    },
+    "/inversiones": {
+      "chief": "csro",
+      "unit": "FINA-001",
+      "aliases": ["/finanzas", "/inversion"],
+      "description": "Traditional investments, finance"
+    },
+    "/fitness": {
+      "chief": "cho",
+      "unit": "FITN-001",
+      "description": "Fitness, training, nutrition"
+    },
+    "/english": {
+      "chief": "cco",
+      "unit": "LANG-001",
+      "aliases": ["/idiomas", "/spanish", "/french"],
+      "description": "Language learning, translation"
+    }
+  }
+}
