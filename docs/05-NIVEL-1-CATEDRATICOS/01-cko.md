@@ -131,23 +131,15 @@ Alerta: Proceso 'python3' consumiendo 40% RAM. ¿Deseas investigar?"
 
 ## HERRAMIENTAS DISPONIBLES
 
-| Herramienta | Estado | Puerto | Uso |
-|-------------|--------|--------|-----|
-| **GPT Researcher** | Operativo | 11020 | Investigación web autónoma |
-| **Engram** | Operativo | - | Memoria persistente |
-| **Obsidian** | Disponible | - | Base de conocimientos |
-| **PM2** | Disponible | - | Gestión de procesos |
+| Herramienta | Estado | Uso |
+|-------------|--------|-----|
+| **Motor de Conocimiento** | Operativo | 5 capas de fuentes verificadas |
+| **Sistema de Memoria** | Operativo | 4 niveles jerárquicos |
+| **Obsidian** | Disponible | Base de conocimientos |
+| **PM2** | Disponible | Gestión de procesos |
 
 ### Acceso a Herramientas
 ```bash
-# GPT Researcher
-./scripts/tools-control.sh gpt-researcher start
-# Acceso: http://localhost:11020
-
-# Engram
-./scripts/tools-control.sh engram search "query"
-# Database: /Users/ruben/.engram/engram.db
-
 # PM2
 pm2 list
 pm2 logs
@@ -214,7 +206,7 @@ responsabilidades:
 5. ARCHIVADOR guarda en Obsidian
          │
          ▼
-6. ARCHIVADOR actualiza Engram
+6. ARCHIVADOR actualiza Memoria del Sistema
          │
          ▼
 7. RESPUESTA al usuario
@@ -226,16 +218,16 @@ responsabilidades:
 1. USUARIO pregunta: "¿Cuál es el mejor framework para X?"
          │
          ▼
-2. ARCHIVADOR busca en Engram (información previa)
+2. ARCHIVADOR busca en Memoria del Sistema (información previa)
          │
          ▼
-3. Si no encuentra → EJECUTOR usa GPT Researcher
+3. Si no encuentra → EJECUTOR consulta fuentes externas verificadas
          │
          ▼
 4. DIRECTOR valida resultados
          │
          ▼
-5. ARCHIVADOR guarda en Obsidian y Engram
+5. ARCHIVADOR guarda en Obsidian y Memoria del Sistema
          │
          ▼
 6. RESPUESTA al usuario
@@ -287,7 +279,7 @@ responsabilidades:
 |---------|-------------|----------|
 | **Documentos procesados** | Número de PDFs analizados | >100/mes |
 | **Información indexada** | KB en Obsidian | >1GB |
-| **Investigaciones completadas** | Queries en GPT Researcher | >50/mes |
+| **Investigaciones completadas** | Consultas a fuentes verificadas | >50/mes |
 | **Tiempo de respuesta** | Promedio de respuestas | <30s |
 | **Precisión** | Aciertos en respuestas | >95% |
 
@@ -307,15 +299,15 @@ responsabilidades:
 - [ ] Instalar `summarize`
 - [ ] Instalar `obsidian`
 - [ ] Instalar `mcporter`
-- [ ] Configurar GPT Researcher
-- [ ] Configurar Engram
+- [ ] Configurar Motor de Conocimiento
+- [ ] Configurar Sistema de Memoria
 
 ### Pruebas
 - [ ] Probar ingestión de PDFs
 - [ ] Probar monitoreo de feeds RSS
-- [ ] Probar búsqueda en Engram
+- [ ] Probar búsqueda en Memoria del Sistema
 - [ ] Probar comunicación con otros catedráticos
-- [ ] Probar integración con GPT Researcher
+- [ ] Probar consulta a fuentes externas
 
 ---
 
@@ -341,8 +333,8 @@ Guardado en: /Base Conocimiento/02-Documentacion/microservicios.md
 ```
 Usuario: "¿Cuál es el mejor framework para APIs en 2026?"
 
-JEF-CON (Archivador): Buscando en Engram...
-JEF-CON (Ejecutor): Consultando GPT Researcher...
+JEF-CON (Archivador): Buscando en Memoria del Sistema...
+JEF-CON (Ejecutor): Consultando fuentes externas verificadas...
 JEF-CON (Director): Validando resultados...
 
 JEF-CON: Basado en investigación actual:

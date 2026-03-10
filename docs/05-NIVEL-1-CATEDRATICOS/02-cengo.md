@@ -242,22 +242,17 @@ CDN:
 
 ## HERRAMIENTAS DISPONIBLES
 
-| Herramienta | Estado | Puerto | Uso |
-|-------------|--------|--------|-----|
-| **GPT Researcher** | Operativo | 11020 | Investigación técnica autónoma |
-| **SonarQube** | Disponible | - | Análisis de calidad |
-| **ESLint** | Disponible | - | Linting JavaScript/TypeScript |
-| **Jest** | Disponible | - | Testing |
-| **Docker** | Disponible | - | Contenedorización |
-| **Kubernetes** | Disponible | - | Orquestación |
-| **PM2** | Disponible | - | Gestión de procesos |
+| Herramienta | Estado | Uso |
+|-------------|--------|-----|
+| **SonarQube** | Disponible | Análisis de calidad |
+| **ESLint** | Disponible | Linting JavaScript/TypeScript |
+| **Jest** | Disponible | Testing |
+| **Docker** | Disponible | Contenedorización |
+| **Kubernetes** | Disponible | Orquestación |
+| **PM2** | Disponible | Gestión de procesos |
 
 ### Acceso a Herramientas
 ```bash
-# GPT Researcher
-./scripts/tools-control.sh gpt-researcher start
-# Acceso: http://localhost:11020
-
 # SonarQube
 sonar-scanner
 
@@ -327,7 +322,7 @@ responsabilidades:
 4. DIRECTOR valida resultados
          │
          ▼
-5. ARCHIVADOR guarda en Engram
+5. ARCHIVADOR guarda en Memoria del Sistema
          │
          ▼
 6. APROBACIÓN o SOLICITUD DE CAMBIOS
@@ -339,7 +334,7 @@ responsabilidades:
 1. REQUISITO IDENTIFICADO
          │
          ▼
-2. ARCHIVADOR busca decisiones previas (Engram)
+2. ARCHIVADOR busca decisiones previas en Memoria del Sistema
          │
          ▼
 3. SI NO HAY → DIRECTOR investiga alternativas

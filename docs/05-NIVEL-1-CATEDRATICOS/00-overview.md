@@ -66,8 +66,8 @@ Los Catedráticos son los **6 Jefes de Dominio del Nivel JEF** de la arquitectur
 - Memoria del sistema
 
 **Herramientas:**
-- GPT Researcher (puerto 11020)
-- Engram (sistema de memoria persistente)
+- Sistema de gestión documental
+- Bases de conocimiento estructuradas
 
 **Especialistas bajo su mando:**
 - `ESP-ACA-UNI-001` - Académico (`/academico`)
@@ -91,7 +91,7 @@ Los Catedráticos son los **6 Jefes de Dominio del Nivel JEF** de la arquitectur
 - Decisiones técnicas
 
 **Herramientas:**
-- GPT Researcher (investigación técnica)
+- Herramientas de análisis de código
 - Sistemas de CI/CD
 
 **Especialistas bajo su mando:**
@@ -116,8 +116,8 @@ Los Catedráticos son los **6 Jefes de Dominio del Nivel JEF** de la arquitectur
 - Gestión de recursos
 
 **Herramientas:**
-- GPT Researcher (investigación operativa)
 - Sistemas de monitoreo
+- Herramientas de automatización
 
 **Especialistas bajo su mando:**
 - `ESP-HOS-UNI-001` - Hostelería (`/hosteleria`)
@@ -140,7 +140,7 @@ Los Catedráticos son los **6 Jefes de Dominio del Nivel JEF** de la arquitectur
 - Incorporación y baja de agentes
 
 **Herramientas:**
-- Engram (sistema de memoria persistente)
+- Sistema de gestión de agentes
 - Sistema Fábrica de Agentes
 
 **Especialistas bajo su mando:**
@@ -168,8 +168,8 @@ RHU gestiona la **Fábrica de Agentes**, el sistema que crea nuevos dominios y u
 - Inversiones
 
 **Herramientas:**
-- GPT Researcher (investigación de mercados)
 - Canales de comunicación
+- Sistemas de análisis
 
 **Especialistas bajo su mando:**
 - `ESP-CRI-UNI-001` - Criptomonedas (`/crypto`)
@@ -193,8 +193,8 @@ RHU gestiona la **Fábrica de Agentes**, el sistema que crea nuevos dominios y u
 - Idiomas y traducción
 
 **Herramientas:**
-- GPT Researcher (redacción y comunicación)
 - Sistemas de mensajería interna
+- Herramientas de traducción
 
 **Especialistas bajo su mando:**
 - `ESP-IDI-UNI-001` - Idiomas (`/english`)
@@ -324,11 +324,11 @@ Tarea: "Implementar nuevo sistema de reservas para restaurante"
 
 | Herramienta | Descripción | Catedráticos |
 |-------------|-------------|--------------|
-| **GPT Researcher** | Investigación web autónoma | CON, ING, OPE, REX, COM |
-| **MAESTRO** | Investigación RAG profunda | Todos (bajo demanda) |
-| **Engram** | Memoria persistente | CON, RHU |
+| **Motor de Conocimiento** | 5 capas de fuentes verificadas | Todos |
+| **Sistema de Memoria** | 4 niveles jerárquicos | Todos |
 | **Fábrica de Agentes** | Creación de dominios | RHU |
 | **PM2** | Gestión de procesos | Todos (infraestructura) |
+| **OpenClaw** | Framework base multi-canal | Todos |
 
 ---
 

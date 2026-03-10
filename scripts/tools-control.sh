@@ -1,29 +1,7 @@
 #!/bin/bash
-# tools-control.sh - Control de herramientas de investigación OPENCLAW
+# tools-control.sh - Control de servicios OPENCLAW-system
 
 case "$1" in
-    gpt-researcher)
-        cd /Users/ruben/JartOS/TIERS/TIER-01-ACCESS/10120-gpt-researcher
-        case "$2" in
-            start)
-                docker-compose up -d
-                echo "✅ GPT Researcher iniciado en http://localhost:11020"
-                ;;
-            stop)
-                docker-compose down
-                echo "✅ GPT Researcher detenido"
-                ;;
-            status)
-                docker-compose ps
-                ;;
-            logs)
-                docker-compose logs -f
-                ;;
-            *)
-                echo "Uso: $0 gpt-researcher {start|stop|status|logs}"
-                ;;
-        esac
-        ;;
     maestro)
         cd /Users/ruben/JartOS/TIERS/TIER-01-ACCESS/10150-maestro
         case "$2" in
@@ -48,54 +26,23 @@ case "$1" in
                 ;;
         esac
         ;;
-    engram)
-        case "$2" in
-            stats)
-                engram stats
-                ;;
-            search)
-                shift 3
-                if [ -z "$3" ]; then
-                    echo "Uso: $0 engram search <query>"
-                    exit 1
-                fi
-                engram search "$3"
-                ;;
-            save)
-                shift 3
-                if [ -z "$3" ] || [ -z "$4" ]; then
-                    echo "Uso: $0 engram save <title> <content>"
-                    exit 1
-                fi
-                engram save "$3" "$4"
-                ;;
-            context)
-                engram context openclaw
-                ;;
-            *)
-                echo "Uso: $0 engram {stats|search|save|context}"
-                ;;
-        esac
-        ;;
-    status)
-        echo "=== Estado de Herramientas OPENCLAW ==="
-        echo ""
-        echo "📚 GPT Researcher:"
-        curl -s http://localhost:11020/ 2>/dev/null || echo "  ✅ Operativo" || echo "  ❌ No disponible"
+    servicios)
+        echo "=== Estado de Servicios OPENCLAW ==="
         echo ""
         echo "🔬 MAESTRO:"
-        curl -s http://localhost/health 2>/dev/null || echo "  ✅ Operativo" || echo "  ❌ No disponible"
+        curl -s http://localhost/health 2>/dev/null && echo "  ✅ Operativo" || echo "  ❌ No disponible"
         echo ""
-        echo "💾 Engram:"
-        engram stats
+        echo "🚀 Gateway (18789):"
+        curl -s http://127.0.0.1:18789/health 2>/dev/null && echo "" || echo "  ❌ No disponible"
+        echo ""
+        echo "📊 PM2:"
+        pm2 list
         ;;
     *)
-        echo "Uso: $0 {gpt-researcher|maestro|engram|status}"
+        echo "Uso: $0 {maestro|servicios}"
         echo ""
         echo "Comandos disponibles:"
-        echo "  $0 gpt-researcher {start|stop|status|logs}"
         echo "  $0 maestro {start|stop|status|logs}"
-        echo "  $0 engram {stats|search|save|context}"
-        echo "  $0 status"
+        echo "  $0 servicios"
         ;;
 esac

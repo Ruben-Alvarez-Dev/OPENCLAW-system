@@ -264,24 +264,15 @@ plan_desarrollo_personal:
 
 ## HERRAMIENTAS DISPONIBLES
 
-| Herramienta | Estado | Puerto | Uso |
-|-------------|--------|--------|-----|
-| **Engram** | Operativo | - | Memoria persistente, historial de agentes |
-| **GPT Researcher** | Operativo | 11020 | Investigación de mejores prácticas RRHH |
-| **Obsidian** | Disponible | - | Documentación, guías, playbooks |
-| **PM2** | Disponible | - | Gestión de procesos, start/stop agentes |
-| **Fábrica de Agentes** | Operativo | - | Creación dinámica de dominios |
+| Herramienta | Estado | Uso |
+|-------------|--------|-----|
+| **Sistema de Memoria** | Operativo | Memoria jerárquica de agentes |
+| **Obsidian** | Disponible | Documentación, guías, playbooks |
+| **PM2** | Disponible | Gestión de procesos, start/stop agentes |
+| **Fábrica de Agentes** | Operativo | Creación dinámica de dominios |
 
 ### Acceso a Herramientas
 ```bash
-# Engram
-./scripts/tools-control.sh engram stats
-# Database: /Users/ruben/.engram/engram.db
-
-# GPT Researcher
-./scripts/tools-control.sh gpt-researcher start
-# Acceso: http://localhost:11020
-
 # PM2
 pm2 list
 pm2 logs
@@ -442,7 +433,7 @@ responsabilidades:
 - [ ] Instalar `onboarding`
 - [ ] Instalar `evaluation`
 - [ ] Instalar `training`
-- [ ] Configurar Engram para agentes
+- [ ] Configurar Sistema de Memoria para agentes
 - [ ] Configurar Fábrica de Agentes
 
 ### Procesos
@@ -497,7 +488,7 @@ JEF-RHU: Evaluación completada:
 Recomendaciones:
 - Incrementar tareas de innovación
 - Mentoria a nuevos agentes (candidato ideal)
-Guardado en Engram para seguimiento.
+Guardado en Sistema de Memoria para seguimiento.
 ```
 
 ---

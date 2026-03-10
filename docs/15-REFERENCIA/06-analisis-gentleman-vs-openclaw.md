@@ -29,7 +29,7 @@ Este documento compara la metodología "Gentleman Programming" y las features de
 | Aspecto | Gentleman | OPENCLAW-system | Veredicto |
 |---------|-----------|-----------------|-----------|
 | **Agente principal** | 1 agente + workers | Orquestador tri-agente | ⭐ **OPENCLAW superior** |
-| **Memoria** | Engram (SQLite) | 4 niveles jerárquicos | ⭐ **OPENCLAW superior** |
+| **Memoria** | SQLite básico | 4 niveles jerárquicos | ⭐ **OPENCLAW superior** |
 | **Coordinación** | 9 sub-agentes paralelos | 6 Catedráticos + Especialistas | ⭐ **OPENCLAW superior** |
 | **Validación** | GGA rotador | Archivador + validación multicapa | ✅ Equivalente |
 
@@ -37,7 +37,7 @@ Este documento compara la metodología "Gentleman Programming" y las features de
 
 ## 2. Análisis del "AI Gentle Stack"
 
-### 2.1 Engram (Memoria Persistente)
+### 2.1 Memoria Persistente
 
 **Gentleman:** Sistema de memoria basado en SQLite para contexto entre sesiones.
 
@@ -255,9 +255,9 @@ Director (planifica) → Ejecutor (ejecuta) → Archivador (valida)
 
 | Elemento | Razón |
 |----------|-------|
-| Engram | Memoria jerárquica superior |
-| Context7 | Motor de conocimiento superior |
-| GGA rotador | Archivador superior |
+| SQLite simple | Sistema de memoria jerárquica superior |
+| Context7 | Motor de conocimiento 5 capas |
+| GGA rotador | Archivador con validación multicapa |
 | SDD 9 agentes | Triunvirato más eficiente |
 
 ---
@@ -308,7 +308,7 @@ Director (planifica) → Ejecutor (ejecuta) → Archivador (valida)
 
 1. **Corto plazo:** Evaluar implementación de Mission Control
 2. **Medio plazo:** Integrar Brave Search API como fuente de conocimiento
-3. **Largo plazo:** Mantener arquitectura actual, no adoptar SDD ni Engram
+3. **Largo plazo:** Mantener arquitectura actual, no adoptar SDD
 
 ---
 

@@ -1,188 +1,198 @@
 # OPENCLAW - Sistema Multi-Agente Jerárquico
 
-**Fecha:** 2026-03-10
-**Versión:** 3.0.0
-**Estado:** Documentación Lista para Producción
-**Repositorio:** https://github.com/openclaw/openclaw
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-3.0.0-green.svg)](https://github.com/Ruben-Alvarez-Dev/OPENCLAW-system)
+[![Status](https://img.shields.io/badge/status-production%20ready-brightgreen.svg)](https://github.com/Ruben-Alvarez-Dev/OPENCLAW-system)
+[![Architecture](https://img.shields.io/badge/architecture-tri--agent-orange.svg)](https://github.com/Ruben-Alvarez-Dev/OPENCLAW-system)
 
-**Sitio web:** https://openclaw.ai
-**Documentación:** [./docs/00-INDICE.md](./docs/00-INDICE.md)
+**Framework Base:** OpenClaw v2026.3.8 | **20+ Canales** | **30+ Proveedores IA**
 
 ---
 
 ## Resumen
 
-OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaciones humanas estructuradas. Combina orquestación, especialización por dominio y unidades tri-agente para producir salidas estables y verificables.
+OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaciones humanas estructuradas. Combina orquestación, especialización por dominio y unidades tri-agente (Director + Ejecutor + Archivador) para producir salidas estables y verificadas.
 
-**Framework Base:** OpenClaw v2026.3.8 (20+ canales, 30+ proveedores IA)
+### Características Principales
 
----
-
-## Arquitectura: Mezcla de Expertos (MoE)
-
-### Nivel SIS - Orquestador
-- Punto de entrada y coordinación global
-- Enrutamiento de dominios
-- Seguridad y políticas del sistema
-- Fábrica de Agentes (creación dinámica)
-
-### Nivel JEF - Los Seis Catedráticos
-
-| Jefe | ID | Responsabilidad | Herramientas Clave |
-|------|-----|----------------|---------------------|
-| **Conocimiento** | `JEF-CON-UNI-001` | Gestión de conocimiento | GPT Researcher, Engram |
-| **Ingeniería** | `JEF-ING-UNI-001` | Ingeniería, calidad, arquitectura | GPT Researcher |
-| **Operaciones** | `JEF-OPE-UNI-001` | Operaciones, procesos | GPT Researcher |
-| **Recursos Humanos** | `JEF-RHU-UNI-001` | RRHH, talento, fábrica | Engram |
-| **Relaciones Externas** | `JEF-REX-UNI-001` | Relaciones externas | GPT Researcher |
-| **Comunicación** | `JEF-COM-UNI-001` | Comunicaciones | GPT Researcher |
-
-### Nivel ESP - Especialistas (Latentes)
-- Agentes especializados en dominios específicos
-- Heredan conocimiento de los Catedráticos
-- Estructura tri-agente (Director, Ejecutor, Archivador)
-- Invocados bajo demanda
-
-### Nivel SUB - Subagentes (Efímeros)
-- Trabajadores temporales para tareas específicas
-- Vida corta
-- Terminan al completar tarea
-- Reportan resultados a Catedráticos
+| Característica | Descripción |
+|----------------|-------------|
+| 🏗️ **Arquitectura Jerárquica** | 4 niveles: SIS → JEF → ESP → SUB |
+| 🔄 **Patrón Tri-Agente** | Director + Ejecutor + Archivador con consenso |
+| 🎯 **Routing por Dominio** | Namespaces automáticos `/dev`, `/infra`, etc. |
+| 🧠 **Motor de Conocimiento** | 5 capas de fuentes verificadas |
+| 💾 **Memoria Persistente** | 4 niveles: Agente, Unidad, Dominio, Global |
+| 🔒 **Seguridad Endurecida** | Sandbox Docker, exec-approvals, firewall |
+| 🔀 **Validación Multicapa** | 5 capas de validación automática |
 
 ---
 
-## Estructura de Directorios
+## Arquitectura
 
 ```
-OPENCLAW-system/
-│
-├── sistema/                    # Nivel SIS - Configuración
-│   └── configuracion/
-│       └── SIS-SMA-CFG-001-sistema.yaml
-│
-├── biblioteca/                 # Nivel SIS - Recursos compartidos
-│   ├── protocolos/
-│   │   ├── SIS-BIB-PRO-001-validacion.md
-│   │   ├── SIS-BIB-PRO-002-evolucion.md
-│   │   ├── SIS-BIB-PRO-003-recuperacion.md
-│   │   ├── SIS-BIB-PRO-004-deprecacion.md
-│   │   └── SIS-BIB-PRO-005-descubrimiento.md
-│   ├── plantillas/
-│   │   ├── SIS-BIB-PLA-001-especialista_base.yaml
-│   │   └── SIS-BIB-PLA-002-triagente_estandar.yaml
-│   └── registros/
-│       ├── SIS-BIB-REG-001-habilidades.yaml
-│       ├── SIS-BIB-REG-002-herramientas.yaml
-│       └── SIS-BIB-REG-003-mapa_codigos.yaml
-│
-├── jefaturas/                  # Nivel JEF - Jefes de dominio
-│   ├── conocimiento/
-│   │   └── JEF-CON-UNI-001-conocimiento.yaml
-│   ├── ingenieria/
-│   │   └── JEF-ING-UNI-001-ingenieria.yaml
-│   ├── operaciones/
-│   │   └── JEF-OPE-UNI-001-operaciones.yaml
-│   ├── recursos_humanos/
-│   │   └── JEF-RHU-UNI-001-recursos_humanos.yaml
-│   ├── relaciones_externas/
-│   │   └── JEF-REX-UNI-001-relaciones_externas.yaml
-│   └── comunicacion/
-│       └── JEF-COM-UNI-001-comunicacion.yaml
-│
-├── especialistas/              # Nivel ESP - Unidades especializadas
-│   ├── desarrollo/
-│   │   └── ESP-DES-UNI-001-desarrollo.yaml
-│   ├── infraestructura/
-│   │   └── ESP-INF-UNI-001-infraestructura.yaml
-│   ├── hosteleria/
-│   │   └── ESP-HOS-UNI-001-hosteleria.yaml
-│   ├── academico/
-│   │   └── ESP-ACA-UNI-001-academico.yaml
-│   ├── general/
-│   │   └── ESP-GEN-UNI-001-general.yaml
-│   ├── criptomonedas/
-│   │   └── ESP-CRI-UNI-001-criptomonedas.yaml
-│   ├── finanzas/
-│   │   └── ESP-FIN-UNI-001-finanzas.yaml
-│   ├── deportes/
-│   │   └── ESP-DEP-UNI-001-deportes.yaml
-│   └── idiomas/
-│       └── ESP-IDI-UNI-001-idiomas.yaml
-│
-├── docs/                       # Documentación
-├── config/                     # Configuración adicional
-└── scripts/                    # Scripts de control
+┌─────────────────────────────────────────────────────────────────┐
+│  NIVEL SIS — ORQUESTADOR (tri-agente)                           │
+│  Director + Ejecutor + Archivador                               │
+│  Puerto: 8081, 8082, 8083 | Gateway: 18789                      │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│  NIVEL JEF — 6 CATEDRÁTICOS                                     │
+│  CON | ING | OPE | RHU | REX | COM                               │
+│  → Decisiones estratégicas, coordinación de dominio             │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│  NIVEL ESP — 9 ESPECIALISTAS                                    │
+│  DES | INF | HOS | ACA | GEN | CRI | FIN | DEP | IDI            │
+│  → Ejecución con validación tri-agente                          │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+┌─────────────────────────────────────────────────────────────────┐
+│  NIVEL SUB — SUBAGENTES EFÍMEROS                                │
+│  → Trabajadores temporales, sin memoria                          │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
----
+### Concilio Tri-Agente
 
-## Formato de ID
+| Rol | Función | Puerto |
+|-----|---------|--------|
+| **Director** | Planificación, estrategia, delegación | 8081 |
+| **Ejecutor** | Ejecución, cálculos, generación | 8082 |
+| **Archivador** | Validación, memoria, persistencia | 8083 |
+| **Gateway** | API unificada, autenticación | 18789 |
 
-```
-LLL-DDD-TTT-SSS-nombre_descriptivo
-│││ │││ │││ └─── SSS: Secuencia (001-999)
-│││ │││ ││└──── TTT: Tipo (3 letras español, MAYÚSCULAS)
-│││ │││ └────── DDD: Dominio (3 letras español, MAYÚSCULAS)
-│││ └────────── LLL: Nivel (3 letters español, MAYÚSCULAS)
-└────────────── nombre_descriptivo: Minúsculas con guiones bajos
-```
+### Consenso Tri-Agente
 
-### Ejemplo
-
-```
-ESP-DES-HER-001-herramientas
-│││ │││ │││ │││  └── nombre: herramientas
-│││ │││ │││ └──── secuencia: 001
-│││ │││ ││└────── tipo: HER (herramientas)
-│││ │││ └─────── dominio: DES (desarrollo)
-│││ └─────────── nivel: ESP (especialista)
-```
-
----
-
-## Namespaces de Usuario
-
-| Namespace | Dominio | Descripción |
-|-----------|---------|-------------|
-| `/dev` | DES | Desarrollo, código, arquitectura |
-| `/infra` | INF | Infraestructura, DevOps, servidores |
-| `/hosteleria` | HOS | Hostelería, gastronomía |
-| `/academico` | ACA | Oposiciones, estudio |
-| `/general` | GEN | Consultas generales |
-| `/crypto` | CRI | Criptomonedas, blockchain |
-| `/inversiones` | FIN | Inversiones, finanzas |
-| `/fitness` | DEP | Deportes, entrenamiento |
-| `/english` | IDI | Aprendizaje de idiomas |
-
----
-
-## Comandos Principales
-
-### Control de Herramientas
-
-```bash
-./scripts/tools-control.sh gpt-researcher start|stop|status|logs
-./scripts/tools-control.sh maestro start|stop|status|logs
-./scripts/tools-control.sh engram stats|search|save|context
-./scripts/tools-control.sh status  # Verificar todas las herramientas
-```
-
-### Endpoints
-
-| Herramienta | Puerto | Uso |
-|-------------|--------|-----|
-| GPT Researcher | 11020 | Investigación web rápida |
-| MAESTRO | 80 | Investigación profunda multi-agente |
-| Engram | MCP | Memoria persistente |
+| Tipo de Tarea | Umbral | Descripción |
+|---------------|--------|-------------|
+| **Normal** | 66% (2/3) | Director + Ejecutor o Director + Archivador |
+| **Crítica** | 100% (3/3) | Todos deben aprobar |
 
 ---
 
 ## Inicio Rápido
 
-1. **Configuración:** Editar `sistema/configuracion/SIS-SMA-CFG-001-sistema.yaml`
-2. **Añadir conocimiento:** Colocar documentos en `especialistas/{dominio}/conocimiento/`
-3. **Iniciar herramientas:** `./scripts/tools-control.sh status`
-4. **Consultar:** Usar namespace apropiado (ej: `/dev ayuda con el código`)
+### Requisitos
+
+| Recurso | Mínimo | Recomendado |
+|---------|--------|-------------|
+| CPU | 4 cores | 8 cores |
+| RAM | 8 GB | 16 GB |
+| Disco | 50 GB SSD | 100 GB SSD |
+| Node.js | v20+ | v23.11.1 |
+| pnpm | v9+ | v10.23.0 |
+
+### Instalación
+
+```bash
+# Clonar repositorio
+git clone https://github.com/Ruben-Alvarez-Dev/OPENCLAW-system.git
+cd OPENCLAW-system
+
+# Instalar dependencias
+pnpm install
+
+# Configurar entorno
+cp .env.example .env
+# Editar .env con tus API keys
+
+# Build e iniciar
+pnpm build && pm2 start ecosystem.config.js
+```
+
+### Rutas de Instalación
+
+| Ruta | Descripción | Documentación |
+|------|-------------|---------------|
+| 🍎 **M1 Mini** | Local con Ollama | [Guía](docs/INSTALACION-PERSONAL/02-ruta-m1-mini.md) |
+| 🌐 **VPS Hetzner** | Cloud económico | [Guía](docs/INSTALACION-PERSONAL/03-ruta-vps-hetzner.md) |
+| 🌍 **Distribuido** | M1 + VPS con Tailscale | [Guía](docs/INSTALACION-PERSONAL/04-ruta-distribuida.md) |
+
+---
+
+## Namespaces de Usuario
+
+| Namespace | Dominio | Especialista | Descripción |
+|-----------|---------|--------------|-------------|
+| `/dev` | DES | ESP-DES-001 | Desarrollo, código, arquitectura |
+| `/infra` | INF | ESP-INF-001 | Infraestructura, DevOps, servidores |
+| `/hosteleria` | HOS | ESP-HOS-001 | Hostelería, gastronomía |
+| `/academico` | ACA | ESP-ACA-001 | Oposiciones, estudio |
+| `/general` | GEN | ESP-GEN-001 | Consultas generales |
+| `/crypto` | CRI | ESP-CRI-001 | Criptomonedas, blockchain |
+| `/inversiones` | FIN | ESP-FIN-001 | Inversiones, finanzas |
+| `/fitness` | DEP | ESP-DEP-001 | Deportes, entrenamiento |
+| `/english` | IDI | ESP-IDI-001 | Aprendizaje de idiomas |
+
+---
+
+## Estructura del Proyecto
+
+```
+OPENCLAW-system/
+├── docs/                    # Documentación completa
+│   ├── 01-SISTEMA/          # Arquitectura y stack
+│   ├── 12-IMPLEMENTACION/   # Guías de instalación
+│   ├── 13-OPERACIONES/      # Gestión de servicios
+│   └── INSTALACION-PERSONAL/# Rutas específicas
+│
+├── biblioteca/              # Recursos del sistema
+│   ├── protocolos/          # PRO-001 a PRO-010
+│   ├── plantillas/          # PLA-001, PLA-002
+│   └── registros/           # REG-001 a REG-003
+│
+├── sistema/                 # Configuración SIS
+├── jefaturas/               # 6 Catedráticos
+├── especialistas/           # 9 Unidades ESP
+├── scripts/                 # Utilidades
+└── config/                  # Configuración adicional
+```
+
+---
+
+## Comandos Principales
+
+### Gestión de Servicios
+
+```bash
+# Estado de servicios
+pm2 status
+
+# Logs en tiempo real
+pm2 logs
+
+# Reiniciar servicio
+pm2 restart sis-director | sis-ejecutor | sis-archivador
+
+# Health check
+curl http://127.0.0.1:18789/health
+```
+
+### Puertos del Sistema
+
+| Servicio | Puerto | Bind | Protocolo |
+|----------|--------|------|-----------|
+| Gateway | 18789 | 127.0.0.1 | HTTP/WS |
+| Director | 8081 | 127.0.0.1 | HTTP |
+| Ejecutor | 8082 | 127.0.0.1 | HTTP |
+| Archivador | 8083 | 127.0.0.1 | HTTP |
+| Redis | 6379 | 127.0.0.1 | TCP |
+| Ollama | 11434 | 127.0.0.1 | HTTP |
+
+---
+
+## Seguridad
+
+| Capa | Controles |
+|------|-----------|
+| **Perímetro** | Token auth, allowFrom lists, rate limiting |
+| **Aplicación** | Validación Zod, auditoría tools, sanitización |
+| **Ejecución** | Docker sandbox, exec-approvals, detección ofuscación |
+| **Aislamiento** | Workspace mounts, safe-bin policy, readonly FS |
+
+Ver [SECURITY.md](SECURITY.md) para detalles completos.
 
 ---
 
@@ -190,13 +200,25 @@ ESP-DES-HER-001-herramientas
 
 | Documento | Ruta |
 |-----------|------|
-| Índice principal | `INDEX.md` |
-| Guía Claude | `CLAUDE.md` |
-| Protocolos | `biblioteca/protocolos/` |
-| Plantillas | `biblioteca/plantillas/` |
+| [📋 Índice Principal](INDEX.md) | Mapa completo del sistema |
+| [🤖 Guía Claude](CLAUDE.md) | Instrucciones para Claude Code |
+| [📖 Índice Docs](docs/00-INDICE.md) | Documentación técnica |
+| [🔄 CHANGELOG](CHANGELOG.md) | Historial de cambios |
+| [🔒 Seguridad](SECURITY.md) | Políticas de seguridad |
 
 ---
 
-**Licencia:** MIT
-**Autor:** OPENCLAW Team
-# OPENCLAW-system
+## Licencia
+
+Este proyecto está bajo la Licencia MIT - ver [LICENSE](LICENSE) para detalles.
+
+---
+
+## Autor
+
+**Ruben Alvarez**
+- GitHub: [@Ruben-Alvarez-Dev](https://github.com/Ruben-Alvarez-Dev)
+
+---
+
+**Repositorio:** https://github.com/Ruben-Alvarez-Dev/OPENCLAW-system

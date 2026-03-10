@@ -117,14 +117,14 @@ Cuando un dominio no existe, la **Fábrica de Agentes** lo crea dinámicamente.
 
 ## Seis Jefes de Dominio (Catedráticos)
 
-| Jefe | ID | Dominio | Herramientas Principales |
-|------|-----|---------|--------------------------|
-| **Conocimiento** | JEF-CON-UNI-001 | Conocimiento, documentación | GPT Researcher, Engram |
-| **Ingeniería** | JEF-ING-UNI-001 | Ingeniería, arquitectura, calidad | GPT Researcher, CI/CD |
-| **Operaciones** | JEF-OPE-UNI-001 | Operaciones, procesos, automatización | Sistemas monitoreo |
-| **Recursos Humanos** | JEF-RHU-UNI-001 | RRHH, talento, **Fábrica Agentes** | Engram |
-| **Relaciones Externas** | JEF-REX-UNI-001 | Relaciones externas, estrategia | Canales comunicación |
-| **Comunicación** | JEF-COM-UNI-001 | Comunicaciones internas | Sistemas mensajería |
+| Jefe | ID | Dominio |
+|------|-----|---------|
+| **Conocimiento** | JEF-CON-UNI-001 | Conocimiento, documentación, investigación |
+| **Ingeniería** | JEF-ING-UNI-001 | Ingeniería, arquitectura, calidad técnica |
+| **Operaciones** | JEF-OPE-UNI-001 | Operaciones, procesos, automatización |
+| **Recursos Humanos** | JEF-RHU-UNI-001 | RRHH, talento, **Fábrica de Agentes** |
+| **Relaciones Externas** | JEF-REX-UNI-001 | Relaciones externas, estrategia |
+| **Comunicación** | JEF-COM-UNI-001 | Comunicaciones internas |
 
 **Importante:** Los Jefes son responsables de la calidad final de la salida antes de presentar al usuario. Delegan trabajo pero NO aprobación.
 
@@ -234,22 +234,26 @@ OPENCLAW-system/
 
 ## Comandos Principales
 
-### Control de Herramientas
+### Gestión de Servicios
 
 ```bash
-./scripts/tools-control.sh gpt-researcher start|stop|status|logs
-./scripts/tools-control.sh maestro start|stop|status|logs
-./scripts/tools-control.sh engram stats|search|save|context
-./scripts/tools-control.sh status  # Verificar todas las herramientas
+pm2 status                    # Estado de servicios
+pm2 logs                      # Logs en tiempo real
+pm2 restart sis-director      # Reiniciar Director
+pm2 restart sis-ejecutor      # Reiniciar Ejecutor
+pm2 restart sis-archivador    # Reiniciar Archivador
 ```
 
-### Endpoints de Herramientas
+### Puertos del Sistema
 
-| Herramienta | Puerto | Caso de Uso |
-|-------------|--------|-------------|
-| GPT Researcher | 11020 | Investigación web rápida |
-| MAESTRO | 80 | Investigación RAG profunda multi-agente |
-| Engram | MCP | Memoria persistente |
+| Servicio | Puerto | Función |
+|----------|--------|---------|
+| Gateway | 18789 | API unificada, autenticación |
+| Director | 8081 | Planificación, estrategia |
+| Ejecutor | 8082 | Ejecución, cálculos |
+| Archivador | 8083 | Validación, memoria |
+| Redis | 6379 | Caché y coordinación |
+| Ollama | 11434 | LLM local (opcional) |
 
 ---
 

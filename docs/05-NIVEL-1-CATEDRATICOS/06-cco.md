@@ -104,7 +104,7 @@ workflow_anuncios:
        - Slack (equipo)
        - Email (todas las partes interesadas)
        - Obsidian (permanente)
-       - Engram (histórico)
+       - Sistema de Memoria (histórico)
 
   4. Confirmación:
      lectura: "requerida para anuncios critical/high"
@@ -220,7 +220,7 @@ servicios_idiomas:
     - francés
 
   traducción_automática:
-    herramienta: "GPT Researcher + LLM"
+    herramienta: "Sistema de redacción + LLM"
     precision: ">95%"
     uso: "documentación, comunicados"
 
@@ -234,25 +234,16 @@ servicios_idiomas:
 
 ## HERRAMIENTAS DISPONIBLES
 
-| Herramienta | Estado | Puerto | Uso |
-|-------------|--------|--------|-----|
-| **GPT Researcher** | Operativo | 11020 | Redacción y comunicación |
-| **Engram** | Operativo | - | Histórico de comunicaciones |
-| **Obsidian** | Disponible | - | Base de conocimiento |
-| **Slack** | Disponible | - | Mensajería en tiempo real |
-| **Git** | Disponible | - | Control de versiones |
-| **PM2** | Disponible | - | Gestión de procesos |
+| Herramienta | Estado | Uso |
+|-------------|--------|-----|
+| **Sistema de Memoria** | Operativo | Histórico de comunicaciones |
+| **Obsidian** | Disponible | Base de conocimiento |
+| **Slack** | Disponible | Mensajería en tiempo real |
+| **Git** | Disponible | Control de versiones |
+| **PM2** | Disponible | Gestión de procesos |
 
 ### Acceso a Herramientas
 ```bash
-# GPT Researcher
-./scripts/tools-control.sh gpt-researcher start
-# Acceso: http://localhost:11020
-
-# Engram
-./scripts/tools-control.sh engram search "comunicacion"
-# Database: /Users/ruben/.engram/engram.db
-
 # PM2
 pm2 list
 pm2 logs
@@ -469,7 +460,7 @@ JEF-COM: Sincronización completada:
 
 - Documentos actualizados: 12
 - Agentes notificados: 45
-- Canales actualizados: Slack, Obsidian, Engram
+- Canales actualizados: Slack, Obsidian, Sistema de Memoria
 - Confirmaciones recibidas: 38/45
 
 Pendientes:

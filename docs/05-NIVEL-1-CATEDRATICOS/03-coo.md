@@ -264,7 +264,6 @@ Generar reportes periódicos sobre métricas operativas.
 
 | Herramienta | Estado | Puerto | Uso |
 |-------------|--------|--------|-----|
-| **GPT Researcher** | Operativo | 11020 | Investigación operativa autónoma |
 | **Prometheus** | Disponible | 9090 | Recolección de métricas |
 | **Grafana** | Disponible | 3000 | Visualización |
 | **ELK Stack** | Disponible | - | Logging centralizado |
@@ -274,10 +273,6 @@ Generar reportes periódicos sobre métricas operativas.
 
 ### Acceso a Herramientas
 ```bash
-# GPT Researcher
-./scripts/tools-control.sh gpt-researcher start
-# Acceso: http://localhost:11020
-
 # Prometheus
 prometheus
 

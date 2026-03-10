@@ -225,14 +225,14 @@ El usuario **NO** interactúa directamente con agentes internos. La interacción
 
 ### Nivel JEF - Agentes de Coordinación
 
-| Catedrático | Código | ID | Dominio | Herramientas |
-|-------------|--------|-----|---------|--------------|
-| **JEF-CON** | CON | JEF-CON-UNI-001 | Conocimiento, documentación, investigación | GPT Researcher, Engram |
-| **JEF-ING** | ING | JEF-ING-UNI-001 | Ingeniería, arquitectura, calidad técnica | GPT Researcher, CI/CD |
-| **JEF-OPE** | OPE | JEF-OPE-UNI-001 | Operaciones, procesos, automatización | Sistemas de monitoreo |
-| **JEF-RHU** | RHU | JEF-RHU-UNI-001 | RRHH, talento, **Fábrica de Agentes** | Engram |
-| **JEF-REX** | REX | JEF-REX-UNI-001 | Relaciones externas, estrategia | Canales de comunicación |
-| **JEF-COM** | COM | JEF-COM-UNI-001 | Comunicaciones internas | Sistemas de mensajería |
+| Catedrático | Código | ID | Dominio |
+|-------------|--------|-----|---------|
+| **JEF-CON** | CON | JEF-CON-UNI-001 | Conocimiento, documentación, investigación |
+| **JEF-ING** | ING | JEF-ING-UNI-001 | Ingeniería, arquitectura, calidad técnica |
+| **JEF-OPE** | OPE | JEF-OPE-UNI-001 | Operaciones, procesos, automatización |
+| **JEF-RHU** | RHU | JEF-RHU-UNI-001 | RRHH, talento, **Fábrica de Agentes** |
+| **JEF-REX** | REX | JEF-REX-UNI-001 | Relaciones externas, estrategia |
+| **JEF-COM** | COM | JEF-COM-UNI-001 | Comunicaciones internas |
 
 ### Responsabilidades Clave
 
