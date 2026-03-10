@@ -163,7 +163,7 @@ areas_estrategicas:
   inversiones:
     tipo: "análisis de oportunidades"
     frecuencia: "continua"
-    herramientas: "GPT Researcher, análisis de mercado"
+    herramientas: "Análisis de mercado, sistemas de investigación"
 
   partnerships:
     tipo: "alianzas estratégicas"
@@ -185,24 +185,12 @@ areas_estrategicas:
 
 ## HERRAMIENTAS DISPONIBLES
 
-| Herramienta | Estado | Puerto | Uso |
-|-------------|--------|--------|-----|
-| **GPT Researcher** | Operativo | 11020 | Investigación de stakeholders, mercados |
-| **CRM** | Disponible | - | Gestión de stakeholders |
-| **Social Media Tools** | Disponible | - | Gestión de redes sociales |
-| **Media Monitoring** | Disponible | - | Monitoreo de noticias |
-| **Engram** | Operativo | - | Histórico de comunicaciones |
-
-### Acceso a Herramientas
-```bash
-# GPT Researcher
-./scripts/tools-control.sh gpt-researcher start
-# Acceso: http://localhost:11020
-
-# Engram
-./scripts/tools-control.sh engram search "stakeholder"
-# Database: /Users/ruben/.engram/engram.db
-```
+| Herramienta | Estado | Uso |
+|-------------|--------|-----|
+| **CRM** | Disponible | Gestión de stakeholders |
+| **Social Media Tools** | Disponible | Gestión de redes sociales |
+| **Media Monitoring** | Disponible | Monitoreo de noticias |
+| **Sistema de Memoria** | Operativo | Histórico de comunicaciones |
 
 ---
 
@@ -429,7 +417,7 @@ JEF-REX: Análisis competitivo completado:
 - Mercado latam: Sin competencia directa
 
 Recomendación: Posicionar como "Sistema multi-agente empresarial"
-Guardado en Engram para referencia estratégica.
+Guardado en Sistema de Memoria para referencia estratégica.
 ```
 
 ---

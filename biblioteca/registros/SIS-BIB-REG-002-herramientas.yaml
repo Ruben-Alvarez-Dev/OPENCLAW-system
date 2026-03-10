@@ -53,26 +53,14 @@ herramientas:
     tipo: comunicacion
     riesgo: bajo
 
-  gpt_researcher:
-    id: HER-008
-    nombre: "GPT Researcher"
-    tipo: investigacion
-    riesgo: bajo
-
   maestro:
-    id: HER-009
+    id: HER-008
     nombre: "MAESTRO"
     tipo: investigacion
     riesgo: bajo
 
-  engram:
-    id: HER-010
-    nombre: "Engram"
-    tipo: memoria
-    riesgo: bajo
-
   database:
-    id: HER-011
+    id: HER-009
     nombre: "Base de Datos"
     tipo: datos
     riesgo: alto
@@ -85,9 +73,9 @@ por_dominio:
   DES: [shell_exec, filesystem, git, npm_cli, docker_cli, http_client, database]
   INF: [shell_exec, filesystem, git, docker_cli, kubectl, http_client]
   HOS: [shell_exec, filesystem, http_client, database]
-  CRI: [shell_exec, http_client, gpt_researcher, maestro, database]
-  FIN: [shell_exec, http_client, gpt_researcher, maestro]
+  CRI: [shell_exec, http_client, maestro, database]
+  FIN: [shell_exec, http_client, maestro]
   DEP: [shell_exec, filesystem, http_client, database]
   IDI: [shell_exec, filesystem, http_client]
-  ACA: [shell_exec, filesystem, gpt_researcher, maestro, engram]
-  GEN: [shell_exec, filesystem, http_client, gpt_researcher, engram]
+  ACA: [shell_exec, filesystem, maestro]
+  GEN: [shell_exec, filesystem, http_client]

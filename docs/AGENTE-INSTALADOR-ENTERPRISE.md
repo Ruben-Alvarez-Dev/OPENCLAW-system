@@ -20,12 +20,12 @@ OPENCLAW-system es un **sistema multi-agente jerárquico** diseñado para emular
 - **Punto de entrada**, coordinación global, ruteo de dominios
 
 ### NIVEL 1 - JEF (Jefes de Dominio) - Agentes Simples
-- **JEF-CON** (Conocimiento): GPT Researcher, Engram
-- **JEF-ING** (Ingeniería): GPT Researcher, CI/CD
-- **JEF-OPE** (Operaciones): GPT Researcher, Sistemas monitoreo
-- **JEF-RHU** (RRHH): Engram, Fábrica de Agentes
-- **JEF-REX** (Relaciones): GPT Researcher, Canales comunicación
-- **JEF-COM** (Comunicación): GPT Researcher, Sistemas mensajería
+- **JEF-CON** (Conocimiento): Gestión documental, investigación
+- **JEF-ING** (Ingeniería): Análisis de código, CI/CD
+- **JEF-OPE** (Operaciones): Sistemas monitoreo, automatización
+- **JEF-RHU** (RRHH): Fábrica de Agentes, gestión de perfiles
+- **JEF-REX** (Relaciones): Canales comunicación, análisis estratégico
+- **JEF-COM** (Comunicación): Sistemas mensajería, traducción
 
 ### NIVEL 2 - ESP (Especialistas) - Tri-Agente
 Unidades especializadas por dominio (Director + Ejecutor + Archivador)

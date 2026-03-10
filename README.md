@@ -11,18 +11,19 @@
 
 ## Resumen
 
-OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaciones humanas estructuradas. Combina orquestación, especialización por dominio y unidades tri-agente para producir salidas estables y verificables.
+OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaciones humanas estructuradas. Combina orquestación, especialización por dominio y unidades tri-agente (Director + Ejecutor + Archivador) para producir salidas estables y verificadas.
 
 ### Características Principales
 
 | Característica | Descripción |
 |----------------|-------------|
 | 🏗️ **Arquitectura Jerárquica** | 4 niveles: SIS → JEF → ESP → SUB |
-| 🔄 **Patrón Tri-Agente** | Director + Ejecutor + Archivador |
+| 🔄 **Patrón Tri-Agente** | Director + Ejecutor + Archivador con consenso |
 | 🎯 **Routing por Dominio** | Namespaces automáticos `/dev`, `/infra`, etc. |
 | 🧠 **Motor de Conocimiento** | 5 capas de fuentes verificadas |
 | 💾 **Memoria Persistente** | 4 niveles: Agente, Unidad, Dominio, Global |
 | 🔒 **Seguridad Endurecida** | Sandbox Docker, exec-approvals, firewall |
+| 🔀 **Validación Multicapa** | 5 capas de validación automática |
 
 ---
 
@@ -32,7 +33,7 @@ OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaci
 ┌─────────────────────────────────────────────────────────────────┐
 │  NIVEL SIS — ORQUESTADOR (tri-agente)                           │
 │  Director + Ejecutor + Archivador                               │
-│  → Punto de entrada, coordinación, routing                      │
+│  Puerto: 8081, 8082, 8083 | Gateway: 18789                      │
 └─────────────────────────────────────────────────────────────────┘
                               │
 ┌─────────────────────────────────────────────────────────────────┐
@@ -43,17 +44,17 @@ OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaci
                               │
 ┌─────────────────────────────────────────────────────────────────┐
 │  NIVEL ESP — 9 ESPECIALISTAS                                    │
-│  DEV | INF | HOS | ACA | GEN | CRI | FIN | DEP | IDI            │
-│  → Ejecución con validación interna (tri-agente)                │
+│  DES | INF | HOS | ACA | GEN | CRI | FIN | DEP | IDI            │
+│  → Ejecución con validación tri-agente                          │
 └─────────────────────────────────────────────────────────────────┘
                               │
 ┌─────────────────────────────────────────────────────────────────┐
 │  NIVEL SUB — SUBAGENTES EFÍMEROS                                │
-│  → Trabajadores temporales, sin memoria                         │
+│  → Trabajadores temporales, sin memoria                          │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### Tri-Agente (Concilio)
+### Concilio Tri-Agente
 
 | Rol | Función | Puerto |
 |-----|---------|--------|
@@ -62,19 +63,18 @@ OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaci
 | **Archivador** | Validación, memoria, persistencia | 8083 |
 | **Gateway** | API unificada, autenticación | 18789 |
 
+### Consenso Tri-Agente
+
+| Tipo de Tarea | Umbral | Descripción |
+|---------------|--------|-------------|
+| **Normal** | 66% (2/3) | Director + Ejecutor o Director + Archivador |
+| **Crítica** | 100% (3/3) | Todos deben aprobar |
+
 ---
 
 ## Inicio Rápido
 
-### Opciones de Instalación
-
-| Ruta | Descripción | Documentación |
-|------|-------------|---------------|
-| 🍎 **M1 Mini** | Local con Ollama | [Guía](docs/INSTALACION-PERSONAL/02-ruta-m1-mini.md) |
-| 🌐 **VPS Hetzner** | Cloud económico | [Guía](docs/INSTALACION-PERSONAL/03-ruta-vps-hetzner.md) |
-| 🌍 **Distribuido** | M1 + VPS con Tailscale | [Guía](docs/INSTALACION-PERSONAL/04-ruta-distribuida.md) |
-
-### Requisitos Mínimos
+### Requisitos
 
 | Recurso | Mínimo | Recomendado |
 |---------|--------|-------------|
@@ -84,7 +84,7 @@ OPENCLAW es un sistema multi-agente jerárquico diseñado para emular organizaci
 | Node.js | v20+ | v23.11.1 |
 | pnpm | v9+ | v10.23.0 |
 
-### Comandos de Inicio
+### Instalación
 
 ```bash
 # Clonar repositorio
@@ -98,9 +98,33 @@ pnpm install
 cp .env.example .env
 # Editar .env con tus API keys
 
-# Iniciar servicios
+# Build e iniciar
 pnpm build && pm2 start ecosystem.config.js
 ```
+
+### Rutas de Instalación
+
+| Ruta | Descripción | Documentación |
+|------|-------------|---------------|
+| 🍎 **M1 Mini** | Local con Ollama | [Guía](docs/INSTALACION-PERSONAL/02-ruta-m1-mini.md) |
+| 🌐 **VPS Hetzner** | Cloud económico | [Guía](docs/INSTALACION-PERSONAL/03-ruta-vps-hetzner.md) |
+| 🌍 **Distribuido** | M1 + VPS con Tailscale | [Guía](docs/INSTALACION-PERSONAL/04-ruta-distribuida.md) |
+
+---
+
+## Namespaces de Usuario
+
+| Namespace | Dominio | Especialista | Descripción |
+|-----------|---------|--------------|-------------|
+| `/dev` | DES | ESP-DES-001 | Desarrollo, código, arquitectura |
+| `/infra` | INF | ESP-INF-001 | Infraestructura, DevOps, servidores |
+| `/hosteleria` | HOS | ESP-HOS-001 | Hostelería, gastronomía |
+| `/academico` | ACA | ESP-ACA-001 | Oposiciones, estudio |
+| `/general` | GEN | ESP-GEN-001 | Consultas generales |
+| `/crypto` | CRI | ESP-CRI-001 | Criptomonedas, blockchain |
+| `/inversiones` | FIN | ESP-FIN-001 | Inversiones, finanzas |
+| `/fitness` | DEP | ESP-DEP-001 | Deportes, entrenamiento |
+| `/english` | IDI | ESP-IDI-001 | Aprendizaje de idiomas |
 
 ---
 
@@ -128,78 +152,25 @@ OPENCLAW-system/
 
 ---
 
-## Namespaces de Usuario
-
-| Namespace | Dominio | Especialista |
-|-----------|---------|--------------|
-| `/dev` | Desarrollo | ESP-DES-001 |
-| `/infra` | Infraestructura | ESP-INF-001 |
-| `/hosteleria` | Hostelería | ESP-HOS-001 |
-| `/academico` | Académico | ESP-ACA-001 |
-| `/general` | General | ESP-GEN-001 |
-| `/crypto` | Criptomonedas | ESP-CRI-001 |
-| `/inversiones` | Finanzas | ESP-FIN-001 |
-| `/fitness` | Deportes | ESP-DEP-001 |
-| `/english` | Idiomas | ESP-IDI-001 |
-
----
-
-## Documentación
-
-| Documento | Descripción |
-|-----------|-------------|
-| [📋 Índice Principal](INDEX.md) | Mapa completo del sistema |
-| [🤖 Guía Claude](CLAUDE.md) | Instrucciones para Claude Code |
-| [📖 Índice Docs](docs/00-INDICE.md) | Documentación técnica |
-| [🔄 CHANGELOG](CHANGELOG.md) | Historial de cambios |
-| [🔒 Seguridad](SECURITY.md) | Políticas de seguridad |
-
----
-
 ## Comandos Principales
 
 ### Gestión de Servicios
 
 ```bash
-# Estado de todos los servicios
+# Estado de servicios
 pm2 status
 
 # Logs en tiempo real
 pm2 logs
 
-# Reiniciar servicio específico
+# Reiniciar servicio
 pm2 restart sis-director | sis-ejecutor | sis-archivador
 
 # Health check
 curl http://127.0.0.1:18789/health
 ```
 
-### Control de Herramientas
-
-```bash
-./scripts/tools-control.sh gpt-researcher start|stop|status
-./scripts/tools-control.sh engram stats|search|save
-./scripts/tools-control.sh status  # Verificar todas
-```
-
----
-
-## Seguridad
-
-El sistema implementa múltiples capas de seguridad:
-
-| Capa | Controles |
-|------|-----------|
-| **Perímetro** | Token auth, allowFrom lists, rate limiting |
-| **Aplicación** | Validación Zod, auditoría tools, sanitización |
-| **Ejecución** | Docker sandbox, exec-approvals, detección ofuscación |
-| **Aislamiento** | Workspace mounts, safe-bin policy, readonly FS |
-
-Ver [SECURITY.md](SECURITY.md) para detalles completos.
-
----
-
-## Puertos del Sistema
+### Puertos del Sistema
 
 | Servicio | Puerto | Bind | Protocolo |
 |----------|--------|------|-----------|
@@ -212,9 +183,28 @@ Ver [SECURITY.md](SECURITY.md) para detalles completos.
 
 ---
 
-## Contribuir
+## Seguridad
 
-Ver [CONTRIBUTING.md](CONTRIBUTING.md) para guidelines de contribución.
+| Capa | Controles |
+|------|-----------|
+| **Perímetro** | Token auth, allowFrom lists, rate limiting |
+| **Aplicación** | Validación Zod, auditoría tools, sanitización |
+| **Ejecución** | Docker sandbox, exec-approvals, detección ofuscación |
+| **Aislamiento** | Workspace mounts, safe-bin policy, readonly FS |
+
+Ver [SECURITY.md](SECURITY.md) para detalles completos.
+
+---
+
+## Documentación
+
+| Documento | Ruta |
+|-----------|------|
+| [📋 Índice Principal](INDEX.md) | Mapa completo del sistema |
+| [🤖 Guía Claude](CLAUDE.md) | Instrucciones para Claude Code |
+| [📖 Índice Docs](docs/00-INDICE.md) | Documentación técnica |
+| [🔄 CHANGELOG](CHANGELOG.md) | Historial de cambios |
+| [🔒 Seguridad](SECURITY.md) | Políticas de seguridad |
 
 ---
 
